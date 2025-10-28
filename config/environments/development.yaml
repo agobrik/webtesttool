@@ -1,0 +1,69 @@
+# Development Environment Configuration
+
+target:
+  url: null  # Set via command line or environment variable
+  timeout: 30
+  max_retries: 3
+  verify_ssl: true
+
+crawler:
+  enabled: true
+  max_depth: 2  # Shallow crawl for development
+  max_pages: 10  # Limited pages
+  delay: 0.5
+  user_agent: "WebTestool/2.0 (Development)"
+  respect_robots_txt: true
+
+modules:
+  security:
+    enabled: true
+    parallel_execution: false  # Sequential for easier debugging
+    timeout_per_test: 30
+
+  performance:
+    enabled: true
+    load_test_users: 5  # Low load for dev
+    stress_test_enabled: false
+
+  seo:
+    enabled: true
+
+  accessibility:
+    enabled: true
+
+  api:
+    enabled: false  # Disable by default
+
+  infrastructure:
+    enabled: true
+
+reporting:
+  output_dir: reports/dev
+  formats: [html, json]
+  include_screenshots: true
+  detailed_errors: true
+
+database:
+  enabled: true
+  url: sqlite:///data/testool_dev.db
+  echo: true  # SQL logging for development
+
+logging:
+  level: DEBUG
+  console: true
+  file: logs/dev/testool.log
+  rotation: "100 MB"
+  retention: "7 days"
+
+cache:
+  enabled: true
+  backend: memory  # In-memory cache for dev
+  ttl: 300  # 5 minutes
+
+notifications:
+  enabled: false  # Disabled in development
+
+advanced:
+  debug_mode: true
+  profiling: true
+  verbose_errors: true

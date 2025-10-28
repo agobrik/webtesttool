@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  testool:
+    build: .
+    image: webtestool:latest
+    container_name: webtestool
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/data
+      - ./logs:/logs
+      - ./reports:/reports
+      - ./config:/app/config:ro
+    command: --url https://example.com --profile quick
+    networks:
+      - testool-network
+    restart: unless-stopped
+
+  # Optional: Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: testool-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - testool-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: PostgreSQL for database
+  postgres:
+    image: postgres:15-alpine
+    container_name: testool-postgres
+    environment:
+      - POSTGRES_USER=testool
+      - POSTGRES_PASSWORD=testool_password
+      - POSTGRES_DB=testool
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - testool-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testool"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  testool-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:

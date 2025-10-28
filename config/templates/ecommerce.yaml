@@ -1,0 +1,241 @@
+# E-Commerce Security Testing Template
+# Optimized for online stores, payment gateways, and shopping platforms
+# Focus: Payment security, data protection, injection attacks
+
+# Target Configuration
+target:
+  url: "https://example.com"  # Replace with your e-commerce site
+  auth:
+    type: "session"  # or "basic", "bearer"
+    login_url: "/login"
+    credentials:
+      username: "{{ SECRET:ecommerce:username }}"
+      password: "{{ SECRET:ecommerce:password }}"
+
+  headers:
+    User-Agent: "WebTestool/2.0 E-commerce Scanner"
+    Accept: "text/html,application/json"
+
+# Crawler Configuration
+crawler:
+  max_pages: 500
+  max_depth: 5
+  crawl_delay: 0.5
+  respect_robots_txt: true
+
+  # E-commerce specific paths
+  include_patterns:
+    - "/product/*"
+    - "/cart/*"
+    - "/checkout/*"
+    - "/account/*"
+    - "/payment/*"
+    - "/search*"
+    - "/category/*"
+
+  exclude_patterns:
+    - "/admin/*"
+    - "/logout"
+    - "/delete/*"
+
+  # Follow forms for shopping functionality
+  follow_forms: true
+  submit_forms: false  # Don't auto-submit to prevent test orders
+
+# Security Module - Primary Focus
+modules:
+  security:
+    enabled: true
+    priority: high
+
+    tests:
+      # Payment Security
+      - sql_injection:
+          enabled: true
+          aggressive: false
+          test_parameters: true
+          test_cookies: true
+          payloads:
+            - "' OR '1'='1"
+            - "1' UNION SELECT NULL--"
+            - "'; DROP TABLE orders--"
+
+      # XSS Testing
+      - xss:
+          enabled: true
+          test_reflected: true
+          test_stored: true
+          contexts:
+            - "search_query"
+            - "product_review"
+            - "user_profile"
+
+      # Authentication Security
+      - authentication:
+          enabled: true
+          test_brute_force: false  # Avoid account lockouts
+          test_session_fixation: true
+          test_session_timeout: true
+          check_password_policy: true
+
+      # Authorization
+      - authorization:
+          enabled: true
+          test_idor: true  # Insecure Direct Object References
+          test_privilege_escalation: true
+          test_horizontal_bypass: true
+
+      # CSRF Protection
+      - csrf:
+          enabled: true
+          test_forms: true
+          test_ajax: true
+
+      # Sensitive Data Exposure
+      - data_exposure:
+          enabled: true
+          check_credit_card_exposure: true
+          check_pii_exposure: true
+          check_api_keys: true
+          check_debug_info: true
+
+      # Security Headers
+      - headers:
+          enabled: true
+          required_headers:
+            - "Content-Security-Policy"
+            - "X-Frame-Options"
+            - "X-Content-Type-Options"
+            - "Strict-Transport-Security"
+
+      # SSL/TLS
+      - ssl:
+          enabled: true
+          check_certificate: true
+          check_protocols: true
+          minimum_tls_version: "1.2"
+
+      # File Upload (for product images, reviews)
+      - file_upload:
+          enabled: true
+          test_malicious_files: true
+          test_oversized_files: false
+
+      # Payment Integration
+      - payment_security:
+          enabled: true
+          check_pci_compliance: true
+          test_payment_manipulation: true
+          test_price_tampering: true
+
+  # Performance Testing
+  performance:
+    enabled: true
+    priority: medium
+
+    tests:
+      - page_speed:
+          enabled: true
+          threshold_ms: 3000
+          test_critical_paths:
+            - "/product/*"
+            - "/checkout/*"
+
+      - load_test:
+          enabled: true
+          concurrent_users: 50
+          duration: 60
+          endpoints:
+            - "/"
+            - "/products"
+            - "/cart"
+
+      - resource_optimization:
+          enabled: true
+          check_image_optimization: true
+          check_css_minification: true
+          check_js_minification: true
+          check_caching: true
+
+  # SEO (Important for e-commerce)
+  seo:
+    enabled: true
+    priority: low
+
+    tests:
+      - meta_tags:
+          enabled: true
+          check_product_schema: true
+          check_og_tags: true
+
+      - sitemap:
+          enabled: true
+          check_product_urls: true
+
+      - structured_data:
+          enabled: true
+          check_product_markup: true
+          check_breadcrumbs: true
+          check_reviews_markup: true
+
+  # Accessibility (WCAG compliance)
+  accessibility:
+    enabled: true
+    priority: low
+    level: "AA"
+
+# Reporting
+reporting:
+  format: "html"
+  output_dir: "reports/ecommerce"
+
+  # Include e-commerce specific sections
+  sections:
+    - "executive_summary"
+    - "payment_security"
+    - "pci_compliance"
+    - "data_protection"
+    - "vulnerabilities"
+    - "performance"
+    - "recommendations"
+
+  # Severity thresholds
+  fail_on_critical: true
+  fail_on_high: false
+
+  # Export formats
+  exports:
+    - "html"
+    - "json"
+    - "pdf"
+
+# Notifications
+notifications:
+  enabled: true
+
+  on_critical:
+    email: "security@example.com"
+    slack_webhook: "{{ SECRET:notifications:slack_webhook }}"
+
+  on_complete:
+    email: "dev-team@example.com"
+
+# Performance Optimization
+cache:
+  enabled: true
+  ttl: 3600
+  cache_responses: true
+  cache_static_resources: true
+
+# Rate Limiting (be respectful to production sites)
+rate_limit:
+  requests_per_second: 5
+  max_concurrent: 3
+  backoff_on_429: true
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/ecommerce_scan.log"
+  rotate: true
+  max_size_mb: 100

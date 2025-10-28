@@ -1,0 +1,342 @@
+# API Testing Template
+# Optimized for REST APIs, GraphQL, and JSON-based services
+# Focus: API security, authentication, rate limiting, data validation
+
+# Target Configuration
+target:
+  url: "https://api.example.com/v1"  # Replace with your API base URL
+
+  auth:
+    type: "bearer"  # or "api_key", "oauth2"
+    token: "{{ SECRET:api:bearer_token }}"
+    # For API key authentication:
+    # api_key_header: "X-API-Key"
+    # api_key: "{{ SECRET:api:api_key }}"
+
+  headers:
+    User-Agent: "WebTestool/2.0 API Scanner"
+    Accept: "application/json"
+    Content-Type: "application/json"
+
+# API Discovery
+crawler:
+  max_pages: 200
+  max_depth: 3
+  crawl_delay: 0.3
+
+  # API-specific discovery
+  discover_endpoints: true
+
+  # Common API paths
+  include_patterns:
+    - "/api/*"
+    - "/v1/*"
+    - "/v2/*"
+    - "/graphql"
+    - "/rest/*"
+
+  exclude_patterns:
+    - "/admin/*"
+    - "/internal/*"
+
+  # API documentation discovery
+  check_docs:
+    - "/swagger.json"
+    - "/openapi.json"
+    - "/api-docs"
+    - "/graphql"
+
+# Modules Configuration
+modules:
+  # API-specific testing
+  api:
+    enabled: true
+    priority: high
+
+    tests:
+      # REST API Testing
+      - rest_api:
+          enabled: true
+
+          # HTTP Methods
+          test_methods:
+            - GET
+            - POST
+            - PUT
+            - PATCH
+            - DELETE
+            - OPTIONS
+            - HEAD
+
+          # Test for method override
+          test_method_override: true
+          method_override_headers:
+            - "X-HTTP-Method-Override"
+            - "X-Method-Override"
+
+      # GraphQL Testing
+      - graphql:
+          enabled: true
+          introspection_check: true
+          test_mutations: true
+          test_batching: true
+          test_depth_limit: true
+          max_depth: 10
+
+      # Authentication
+      - authentication:
+          enabled: true
+
+          # Test missing authentication
+          test_unauthenticated: true
+
+          # Test expired tokens
+          test_expired_token: true
+
+          # Test token manipulation
+          test_token_tampering: true
+
+          # JWT-specific tests
+          jwt_tests:
+            enabled: true
+            test_algorithm_confusion: true
+            test_weak_secrets: true
+            test_none_algorithm: true
+
+      # Authorization
+      - authorization:
+          enabled: true
+          test_idor: true
+          test_mass_assignment: true
+          test_excessive_data: true
+          test_privilege_escalation: true
+
+      # Input Validation
+      - input_validation:
+          enabled: true
+
+          # Data type validation
+          test_type_confusion: true
+          test_null_bytes: true
+          test_oversized_payload: true
+
+          # JSON-specific
+          test_json_injection: true
+          test_xml_injection: true
+
+          # Parameter pollution
+          test_parameter_pollution: true
+
+      # Rate Limiting
+      - rate_limiting:
+          enabled: true
+          test_absence: true
+          test_bypass: true
+          expected_limit: 100  # requests per minute
+
+      # CORS
+      - cors:
+          enabled: true
+          test_misconfiguration: true
+          test_credentials: true
+          allowed_origins:
+            - "https://example.com"
+
+      # API Versioning
+      - versioning:
+          enabled: true
+          check_old_versions: true
+          test_version_bypass: true
+
+      # Error Handling
+      - error_handling:
+          enabled: true
+          test_verbose_errors: true
+          check_stack_traces: true
+          check_sensitive_info: true
+
+      # Data Exposure
+      - data_exposure:
+          enabled: true
+          check_pii: true
+          check_credentials: true
+          check_api_keys: true
+          check_debug_info: true
+
+  # Security Module
+  security:
+    enabled: true
+    priority: high
+
+    tests:
+      # Injection Attacks
+      - sql_injection:
+          enabled: true
+          test_parameters: true
+          test_json_fields: true
+
+      - nosql_injection:
+          enabled: true
+          test_mongodb: true
+          test_json: true
+
+      - command_injection:
+          enabled: true
+          test_system_commands: true
+
+      # SSRF
+      - ssrf:
+          enabled: true
+          test_url_parameters: true
+          test_webhook_endpoints: true
+
+      # XXE (XML External Entity)
+      - xxe:
+          enabled: true
+          test_xml_endpoints: true
+
+      # Security Headers
+      - headers:
+          enabled: true
+          required_headers:
+            - "Content-Security-Policy"
+            - "X-Content-Type-Options"
+            - "Strict-Transport-Security"
+
+      # SSL/TLS
+      - ssl:
+          enabled: true
+          check_certificate: true
+          minimum_tls_version: "1.2"
+          check_cipher_suites: true
+
+  # Performance Testing
+  performance:
+    enabled: true
+    priority: medium
+
+    tests:
+      # Response Time
+      - response_time:
+          enabled: true
+          threshold_ms: 500
+          percentile_95: 1000
+
+      # Load Testing
+      - load_test:
+          enabled: true
+          concurrent_requests: 100
+          duration: 120
+          endpoints:
+            - "/users"
+            - "/products"
+            - "/orders"
+
+      # Rate Limit Testing
+      - throughput:
+          enabled: true
+          target_rps: 1000
+
+  # Functional Testing
+  functional:
+    enabled: true
+    priority: medium
+
+    tests:
+      # CRUD Operations
+      - crud:
+          enabled: true
+          test_create: true
+          test_read: true
+          test_update: true
+          test_delete: true
+
+      # Pagination
+      - pagination:
+          enabled: true
+          test_limits: true
+          test_offsets: true
+          test_cursors: true
+
+      # Filtering & Sorting
+      - filtering:
+          enabled: true
+          test_query_params: true
+          test_operators: true
+
+      # Search
+      - search:
+          enabled: true
+          test_full_text: true
+          test_wildcards: true
+
+# Reporting
+reporting:
+  format: "html"
+  output_dir: "reports/api"
+
+  sections:
+    - "executive_summary"
+    - "api_endpoints"
+    - "authentication_issues"
+    - "authorization_issues"
+    - "vulnerabilities"
+    - "performance"
+    - "recommendations"
+
+  # API-specific reports
+  include_curl_examples: true
+  include_request_examples: true
+  include_response_examples: true
+
+  exports:
+    - "html"
+    - "json"
+    - "openapi"  # Generate OpenAPI spec from discovered endpoints
+
+# Schema Validation
+schema:
+  enabled: true
+
+  # OpenAPI/Swagger validation
+  openapi_spec: "config/openapi.yaml"
+  validate_requests: true
+  validate_responses: true
+
+# Mock Data Generation
+mock_data:
+  enabled: true
+
+  # Generate test data
+  generate_valid_data: true
+  generate_invalid_data: true
+  generate_edge_cases: true
+
+# Notifications
+notifications:
+  enabled: true
+
+  on_critical:
+    webhook: "{{ SECRET:notifications:webhook }}"
+    slack: "{{ SECRET:notifications:slack }}"
+
+# Rate Limiting (for testing)
+rate_limit:
+  requests_per_second: 10
+  max_concurrent: 5
+  backoff_on_429: true
+
+# Cache
+cache:
+  enabled: true
+  ttl: 1800
+  cache_get_requests: true
+  cache_options_requests: true
+
+# Logging
+logging:
+  level: "DEBUG"
+  file: "logs/api_scan.log"
+  log_requests: true
+  log_responses: true
+  max_size_mb: 200

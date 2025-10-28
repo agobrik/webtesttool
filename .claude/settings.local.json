@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(move reportsfullscan_20251024_132944 reports)",
+      "Bash(python:*)",
+      "Bash(start /B python:*)",
+      "Bash(dir /s \"C:\\Projects\\testool\")",
+      "Bash(tree:*)",
+      "Bash(pip check:*)",
+      "Bash(pip install:*)",
+      "Bash(pip uninstall:*)",
+      "Bash(dir /s /b \"C:\\Projects\\testool\")",
+      "Bash(findstr:*)",
+      "Read(//c/C/**)",
+      "Bash(pytest:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,87 @@
+# Production Environment Configuration
+
+target:
+  url: null  # Set via environment variable
+  timeout: 60
+  max_retries: 5
+  verify_ssl: true
+
+crawler:
+  enabled: true
+  max_depth: 5
+  max_pages: 1000
+  delay: 1.0  # Respectful crawling
+  user_agent: "WebTestool/2.0"
+  respect_robots_txt: true
+  rate_limit:
+    max_requests: 100
+    window: 60  # per minute
+
+modules:
+  security:
+    enabled: true
+    parallel_execution: true
+    timeout_per_test: 120
+
+  performance:
+    enabled: true
+    load_test_users: 50
+    stress_test_enabled: true
+
+  seo:
+    enabled: true
+
+  accessibility:
+    enabled: true
+
+  api:
+    enabled: true
+
+  infrastructure:
+    enabled: true
+
+reporting:
+  output_dir: /var/reports
+  formats: [html, json, pdf, excel]
+  include_screenshots: false  # Save space
+  detailed_errors: false  # Security: don't expose internals
+
+database:
+  enabled: true
+  url: ${DATABASE_URL}  # From environment
+  pool_size: 20
+  max_overflow: 40
+  pool_pre_ping: true
+  echo: false
+
+logging:
+  level: INFO
+  console: false
+  file: /var/log/testool/testool.log
+  rotation: "500 MB"
+  retention: "30 days"
+  format: json  # Structured logging for prod
+
+cache:
+  enabled: true
+  backend: redis
+  url: ${REDIS_URL}
+  ttl: 3600
+
+notifications:
+  enabled: true
+  slack:
+    webhook_url: ${SLACK_WEBHOOK}
+    channel: "#security-alerts"
+  email:
+    smtp_host: ${SMTP_HOST}
+    smtp_port: 587
+    from_address: "testool@company.com"
+    to_addresses: ${ALERT_EMAILS}
+
+advanced:
+  debug_mode: false
+  profiling: false
+  verbose_errors: false
+  metrics_enabled: true
+  health_check_port: 8080

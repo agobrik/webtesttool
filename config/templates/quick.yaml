@@ -1,0 +1,109 @@
+# Quick Scan Template
+# Fast, basic security and performance check
+# Duration: 1-3 minutes
+# Use case: Quick validation, CI/CD integration, rapid testing
+
+# Target Configuration
+target:
+  url: "https://example.com"  # Replace with your URL
+
+  headers:
+    User-Agent: "WebTestool/2.0 Quick Scanner"
+
+# Crawler Configuration - Limited for speed
+crawler:
+  max_pages: 10
+  max_depth: 2
+  crawl_delay: 0.2
+
+  # Focus on main pages
+  include_patterns:
+    - "/"
+    - "/about"
+    - "/contact"
+
+# Modules Configuration - Essential tests only
+modules:
+  # Security - Basic checks
+  security:
+    enabled: true
+    priority: high
+
+    tests:
+      # Most critical security issues
+      - sql_injection:
+          enabled: true
+          aggressive: false
+          quick_mode: true
+
+      - xss:
+          enabled: true
+          test_reflected: true
+          test_stored: false
+
+      - headers:
+          enabled: true
+          required_headers:
+            - "X-Frame-Options"
+            - "X-Content-Type-Options"
+
+      - ssl:
+          enabled: true
+          check_certificate: true
+
+  # Performance - Basic metrics
+  performance:
+    enabled: true
+    priority: medium
+
+    tests:
+      - page_speed:
+          enabled: true
+          threshold_ms: 3000
+
+      - resource_size:
+          enabled: true
+          max_page_size_mb: 3
+
+  # SEO - Basic checks
+  seo:
+    enabled: true
+    priority: low
+
+    tests:
+      - meta_tags:
+          enabled: true
+          check_title: true
+          check_description: true
+
+      - robots:
+          enabled: true
+
+# Reporting - Simplified
+reporting:
+  format: "html"
+  output_dir: "reports/quick"
+
+  sections:
+    - "summary"
+    - "critical_issues"
+    - "quick_wins"
+
+  exports:
+    - "html"
+    - "json"
+
+# Performance Optimization
+cache:
+  enabled: true
+  ttl: 1800
+
+# Fast scanning
+rate_limit:
+  requests_per_second: 10
+  max_concurrent: 5
+
+# Logging - Minimal
+logging:
+  level: "WARNING"
+  file: "logs/quick_scan.log"

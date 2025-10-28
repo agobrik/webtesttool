@@ -1,0 +1,32 @@
+================================================================================
+SCAN SUMMARY
+================================================================================
+
+Target URL: http://testphp.vulnweb.com
+Scan Date: 2025-10-22 18:38:27
+Duration: 27.10 seconds
+
+Statistics:
+  URLs Crawled: 0
+  Modules Executed: 7
+  Total Tests: 31
+
+Findings by Severity:
+  Critical: 1
+  High:     7
+  Medium:   11
+  Low:      10
+  Info:     2
+
+  TOTAL:    31
+
+Module Results:
+  ✓ accessibility: 4 findings
+  ✓ functional: 2 findings
+  ✓ infrastructure: 6 findings
+  ✓ performance: 2 findings
+  ✓ security: 11 findings
+  ✓ seo: 5 findings
+  ✓ visual: 1 findings
+
+================================================================================

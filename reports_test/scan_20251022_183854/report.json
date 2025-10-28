@@ -1,0 +1,1720 @@
+{
+  "id": "scan_1761143907.088169",
+  "target_url": "http://testphp.vulnweb.com",
+  "start_time": "2025-10-22 18:38:27.088192",
+  "end_time": "2025-10-22 18:38:54.190723",
+  "duration": 27.102531,
+  "status": "passed",
+  "module_results": [
+    {
+      "id": "module_1761143907.716371",
+      "name": "accessibility",
+      "category": "accessibility",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:27.716372",
+      "end_time": "2025-10-22 18:38:29.633753",
+      "duration": 1.917381,
+      "test_results": [
+        {
+          "id": "test_1761143907.716378",
+          "name": "wcag_compliance",
+          "description": "WCAG 2.1 compliance check",
+          "category": "accessibility",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:27.716381",
+          "end_time": "2025-10-22 18:38:29.633728",
+          "duration": 1.917347,
+          "findings": [
+            {
+              "id": "finding_1761143909.632505",
+              "title": "Missing Language Attribute",
+              "description": "<html> tag missing lang attribute",
+              "severity": "medium",
+              "category": "accessibility",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.632522",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.633107",
+              "title": "Skipped Heading Level",
+              "description": "Heading hierarchy skips from h1 to h6",
+              "severity": "medium",
+              "category": "accessibility",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.633116",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.633165",
+              "title": "Empty Link Text",
+              "description": "Link has no text: https://www.acunetix.com/",
+              "severity": "high",
+              "category": "accessibility",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.633169",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.633523",
+              "title": "No ARIA Landmarks",
+              "description": "Page lacks ARIA landmarks or HTML5 semantic elements",
+              "severity": "medium",
+              "category": "accessibility",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.633525",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 4,
+        "critical": 0,
+        "high": 1,
+        "medium": 3,
+        "low": 0,
+        "info": 0
+      }
+    },
+    {
+      "id": "module_1761143908.06067",
+      "name": "functional",
+      "category": "functional",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:28.060672",
+      "end_time": "2025-10-22 18:38:54.190180",
+      "duration": 26.129508,
+      "test_results": [
+        {
+          "id": "test_1761143919.82301",
+          "name": "form_functionality_test",
+          "description": "Tests form validation and submission",
+          "category": "functional",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:39.823026",
+          "end_time": "2025-10-22 18:38:39.823044",
+          "duration": 1.8e-05,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143919.823056",
+          "name": "navigation_test",
+          "description": "Tests navigation links and breadcrumbs",
+          "category": "functional",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:39.823058",
+          "end_time": "2025-10-22 18:38:49.072261",
+          "duration": 9.249203,
+          "findings": [
+            {
+              "id": "finding_1761143929.072231",
+              "title": "Broken Navigation Links",
+              "description": "Found 20 broken or non-functional links",
+              "severity": "medium",
+              "category": "functional",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:49.072248",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143929.072278",
+          "name": "javascript_test",
+          "description": "Tests JavaScript functionality and AJAX",
+          "category": "functional",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:49.072282",
+          "end_time": "2025-10-22 18:38:52.900882",
+          "duration": 3.8286,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143932.90093",
+          "name": "ui_components_test",
+          "description": "Tests modals, dropdowns, and other UI components",
+          "category": "functional",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:52.900947",
+          "end_time": "2025-10-22 18:38:53.722848",
+          "duration": 0.821901,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143933.722878",
+          "name": "error_handling_test",
+          "description": "Tests 404 and error pages",
+          "category": "functional",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:53.722890",
+          "end_time": "2025-10-22 18:38:54.022972",
+          "duration": 0.300082,
+          "findings": [
+            {
+              "id": "finding_1761143934.022941",
+              "title": "Default Server 404 Page",
+              "description": "Using default server 404 page instead of custom error page",
+              "severity": "low",
+              "category": "functional",
+              "url": "http://testphp.vulnweb.com/this-page-definitely-does-not-exist-109351.9713637",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:54.022958",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 5,
+        "passed": 5,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 2,
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 1,
+        "info": 0
+      }
+    },
+    {
+      "id": "module_1761143908.145172",
+      "name": "infrastructure",
+      "category": "infrastructure",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:28.145173",
+      "end_time": "2025-10-22 18:38:40.765806",
+      "duration": 12.620633,
+      "test_results": [
+        {
+          "id": "test_1761143908.14532",
+          "name": "dns_test",
+          "description": "DNS configuration testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.145323",
+          "end_time": "2025-10-22 18:38:28.649641",
+          "duration": 0.504318,
+          "findings": [
+            {
+              "id": "finding_1761143908.376173",
+              "title": "No IPv6 Support",
+              "description": "Website does not support IPv6 (AAAA records)",
+              "severity": "info",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:28.376191",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143908.649685",
+          "name": "ssl_advanced_test",
+          "description": "Advanced SSL/TLS testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.649695",
+          "end_time": "2025-10-22 18:38:28.649732",
+          "duration": 3.7e-05,
+          "findings": [
+            {
+              "id": "finding_1761143908.649722",
+              "title": "No HTTPS",
+              "description": "Website not using HTTPS encryption",
+              "severity": "critical",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-319",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:28.649728",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143908.649737",
+          "name": "http_protocol_test",
+          "description": "HTTP protocol version testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.649739",
+          "end_time": "2025-10-22 18:38:29.594834",
+          "duration": 0.945095,
+          "findings": [
+            {
+              "id": "finding_1761143909.594665",
+              "title": "No HTTP/2 Support",
+              "description": "Server does not support HTTP/2",
+              "severity": "low",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.594680",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.594855",
+          "name": "compression_test",
+          "description": "Compression testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.594860",
+          "end_time": "2025-10-22 18:38:39.623700",
+          "duration": 10.02884,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143919.623728",
+          "name": "caching_test",
+          "description": "Caching headers testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:39.623739",
+          "end_time": "2025-10-22 18:38:40.202050",
+          "duration": 0.578311,
+          "findings": [
+            {
+              "id": "finding_1761143920.201941",
+              "title": "No Caching Headers",
+              "description": "No Cache-Control or Expires headers found",
+              "severity": "low",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:40.201958",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143920.202071",
+          "name": "server_info_test",
+          "description": "Server information testing",
+          "category": "infrastructure",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:40.202075",
+          "end_time": "2025-10-22 18:38:40.765782",
+          "duration": 0.563707,
+          "findings": [
+            {
+              "id": "finding_1761143920.765498",
+              "title": "Server Version Disclosure",
+              "description": "Server header discloses version: nginx/1.19.0",
+              "severity": "low",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-200",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:40.765529",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143920.765548",
+              "title": "Technology Stack Disclosure",
+              "description": "X-Powered-By header reveals: PHP/5.6.40-38+ubuntu20.04.1+deb.sury.org+1",
+              "severity": "low",
+              "category": "infrastructure",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-200",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:40.765550",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 6,
+        "passed": 6,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 6,
+        "critical": 1,
+        "high": 0,
+        "medium": 0,
+        "low": 4,
+        "info": 1
+      }
+    },
+    {
+      "id": "module_1761143908.650852",
+      "name": "performance",
+      "category": "performance",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:28.650853",
+      "end_time": "2025-10-22 18:38:40.998456",
+      "duration": 12.347603,
+      "test_results": [
+        {
+          "id": "test_1761143908.651019",
+          "name": "response_time_test",
+          "description": "Measures page response times",
+          "category": "performance",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.651021",
+          "end_time": "2025-10-22 18:38:29.636308",
+          "duration": 0.985287,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.636333",
+          "name": "load_test",
+          "description": "Simulates concurrent users",
+          "category": "performance",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.636339",
+          "end_time": "2025-10-22 18:38:40.209255",
+          "duration": 10.572916,
+          "findings": [
+            {
+              "id": "finding_1761143920.209058",
+              "title": "Poor Performance Under Load",
+              "description": "Average response time: 5.35s with 50 users",
+              "severity": "medium",
+              "category": "performance",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:40.209073",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143920.20927",
+          "name": "resource_optimization",
+          "description": "Checks resource compression and caching",
+          "category": "performance",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:40.209276",
+          "end_time": "2025-10-22 18:38:40.998433",
+          "duration": 0.789157,
+          "findings": [
+            {
+              "id": "finding_1761143920.998032",
+              "title": "No Cache-Control Header",
+              "description": "Resources may not be cached effectively",
+              "severity": "low",
+              "category": "performance",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:40.998059",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 3,
+        "passed": 3,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 2,
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 1,
+        "info": 0
+      }
+    },
+    {
+      "id": "module_1761143908.826391",
+      "name": "security",
+      "category": "security",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:28.826399",
+      "end_time": "2025-10-22 18:38:43.013827",
+      "duration": 14.187428,
+      "test_results": [
+        {
+          "id": "test_1761143908.82667",
+          "name": "sql_injection",
+          "description": "Tests for SQL injection vulnerabilities (Union, Boolean, Time-based, Error-based)",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.826680",
+          "end_time": "2025-10-22 18:38:28.826851",
+          "duration": 0.000171,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143908.826868",
+          "name": "xss",
+          "description": "Tests for Cross-Site Scripting (XSS) vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.826871",
+          "end_time": "2025-10-22 18:38:29.045923",
+          "duration": 0.219052,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.045955",
+          "name": "csrf",
+          "description": "Tests for Cross-Site Request Forgery (CSRF) vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.045968",
+          "end_time": "2025-10-22 18:38:29.046207",
+          "duration": 0.000239,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.046224",
+          "name": "xxe",
+          "description": "Tests for XML External Entity (XXE) vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.046231",
+          "end_time": "2025-10-22 18:38:29.046245",
+          "duration": 1.4e-05,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.046251",
+          "name": "ssrf",
+          "description": "Tests for Server-Side Request Forgery (SSRF) vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.046253",
+          "end_time": "2025-10-22 18:38:29.046258",
+          "duration": 5e-06,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.046262",
+          "name": "command_injection",
+          "description": "Tests for OS command injection vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.046263",
+          "end_time": "2025-10-22 18:38:29.046269",
+          "duration": 6e-06,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.046273",
+          "name": "path_traversal",
+          "description": "Tests for path traversal vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.046274",
+          "end_time": "2025-10-22 18:38:29.046279",
+          "duration": 5e-06,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.046282",
+          "name": "security_headers",
+          "description": "Tests for missing or misconfigured security headers",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.046283",
+          "end_time": "2025-10-22 18:38:29.616544",
+          "duration": 0.570261,
+          "findings": [
+            {
+              "id": "finding_1761143909.615628",
+              "title": "Missing Security Header: X-Frame-Options",
+              "description": "The X-Frame-Options header is not set, leaving the application vulnerable.",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add X-Frame-Options Header",
+                  "description": "Configure your web server to include the X-Frame-Options header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.615673",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.615957",
+              "title": "Missing Security Header: X-Content-Type-Options",
+              "description": "The X-Content-Type-Options header is not set, leaving the application vulnerable.",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add X-Content-Type-Options Header",
+                  "description": "Configure your web server to include the X-Content-Type-Options header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.615965",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.616118",
+              "title": "Missing Security Header: Strict-Transport-Security",
+              "description": "The Strict-Transport-Security header is not set, leaving the application vulnerable.",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add Strict-Transport-Security Header",
+                  "description": "Configure your web server to include the Strict-Transport-Security header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616124",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.616221",
+              "title": "Missing Security Header: Content-Security-Policy",
+              "description": "The Content-Security-Policy header is not set, leaving the application vulnerable.",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add Content-Security-Policy Header",
+                  "description": "Configure your web server to include the Content-Security-Policy header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616226",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.616287",
+              "title": "Missing Security Header: X-XSS-Protection",
+              "description": "The X-XSS-Protection header is not set, leaving the application vulnerable.",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add X-XSS-Protection Header",
+                  "description": "Configure your web server to include the X-XSS-Protection header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616290",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.61643",
+              "title": "Missing Security Header: Referrer-Policy",
+              "description": "The Referrer-Policy header is not set, leaving the application vulnerable.",
+              "severity": "medium",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add Referrer-Policy Header",
+                  "description": "Configure your web server to include the Referrer-Policy header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616435",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143909.616493",
+              "title": "Missing Security Header: Permissions-Policy",
+              "description": "The Permissions-Policy header is not set, leaving the application vulnerable.",
+              "severity": "medium",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add Permissions-Policy Header",
+                  "description": "Configure your web server to include the Permissions-Policy header.",
+                  "references": [
+                    "https://owasp.org/www-project-secure-headers/"
+                  ],
+                  "code_example": null
+                }
+              ],
+              "cwe_id": "CWE-16",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616495",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.616559",
+          "name": "ssl_tls",
+          "description": "Tests SSL/TLS configuration",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.616563",
+          "end_time": "2025-10-22 18:38:29.616653",
+          "duration": 9e-05,
+          "findings": [
+            {
+              "id": "finding_1761143909.616599",
+              "title": "No HTTPS",
+              "description": "Website does not use HTTPS encryption",
+              "severity": "high",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-319",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:29.616601",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143909.61666",
+          "name": "cors",
+          "description": "Tests for CORS misconfigurations",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.616662",
+          "end_time": "2025-10-22 18:38:40.704352",
+          "duration": 11.08769,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143920.704393",
+          "name": "cookies_security",
+          "description": "Tests cookie security attributes",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:40.704406",
+          "end_time": "2025-10-22 18:38:41.290979",
+          "duration": 0.586573,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143921.291027",
+          "name": "info_disclosure",
+          "description": "Tests for information disclosure vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:41.291045",
+          "end_time": "2025-10-22 18:38:42.427526",
+          "duration": 1.136481,
+          "findings": [
+            {
+              "id": "finding_1761143921.856713",
+              "title": "Server Version Disclosure",
+              "description": "Server version exposed: nginx/1.19.0",
+              "severity": "low",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-200",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:41.856740",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143922.427286",
+              "title": "Technology Stack Disclosure in Error Pages",
+              "description": "Error pages reveal technology stack information",
+              "severity": "info",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": "CWE-209",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:42.427304",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143922.427541",
+          "name": "clickjacking",
+          "description": "Tests for clickjacking vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:42.427544",
+          "end_time": "2025-10-22 18:38:43.013793",
+          "duration": 0.586249,
+          "findings": [
+            {
+              "id": "finding_1761143923.013562",
+              "title": "Clickjacking Vulnerability",
+              "description": "Page can be framed, vulnerable to clickjacking attacks",
+              "severity": "medium",
+              "category": "security",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [
+                {
+                  "title": "Add Frame Protection",
+                  "description": "Set X-Frame-Options header or CSP frame-ancestors directive",
+                  "references": [],
+                  "code_example": "X-Frame-Options: DENY\nContent-Security-Policy: frame-ancestors 'self'"
+                }
+              ],
+              "cwe_id": "CWE-1021",
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:43.013578",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        },
+        {
+          "id": "test_1761143923.013807",
+          "name": "open_redirect",
+          "description": "Tests for open redirect vulnerabilities",
+          "category": "security",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:43.013810",
+          "end_time": "2025-10-22 18:38:43.013823",
+          "duration": 1.3e-05,
+          "findings": [],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 14,
+        "passed": 14,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 11,
+        "critical": 0,
+        "high": 6,
+        "medium": 3,
+        "low": 1,
+        "info": 1
+      }
+    },
+    {
+      "id": "module_1761143908.827034",
+      "name": "seo",
+      "category": "seo",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:28.827036",
+      "end_time": "2025-10-22 18:38:39.622922",
+      "duration": 10.795886,
+      "test_results": [
+        {
+          "id": "test_1761143908.827038",
+          "name": "seo_analysis",
+          "description": "SEO best practices check",
+          "category": "seo",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:28.827040",
+          "end_time": "2025-10-22 18:38:39.622904",
+          "duration": 10.795864,
+          "findings": [
+            {
+              "id": "finding_1761143919.61832",
+              "title": "Missing Meta Description",
+              "description": "Page lacks meta description",
+              "severity": "medium",
+              "category": "seo",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:39.618341",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143919.618443",
+              "title": "Missing Viewport Meta Tag",
+              "description": "Page not optimized for mobile",
+              "severity": "medium",
+              "category": "seo",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:39.618447",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143919.618608",
+              "title": "Missing Canonical URL",
+              "description": "No canonical link tag found",
+              "severity": "low",
+              "category": "seo",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:39.618612",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143919.618713",
+              "title": "Missing Open Graph Tags",
+              "description": "No OG tags for social sharing",
+              "severity": "low",
+              "category": "seo",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:39.618715",
+              "metadata": {}
+            },
+            {
+              "id": "finding_1761143919.618808",
+              "title": "No Structured Data",
+              "description": "No Schema.org structured data found",
+              "severity": "low",
+              "category": "seo",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:39.618810",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 5,
+        "critical": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 3,
+        "info": 0
+      }
+    },
+    {
+      "id": "module_1761143909.008394",
+      "name": "visual",
+      "category": "visual",
+      "status": "passed",
+      "start_time": "2025-10-22 18:38:29.008395",
+      "end_time": "2025-10-22 18:38:46.568010",
+      "duration": 17.559615,
+      "test_results": [
+        {
+          "id": "test_1761143909.008578",
+          "name": "visual_regression_test",
+          "description": "Visual regression testing with screenshots",
+          "category": "visual",
+          "status": "passed",
+          "start_time": "2025-10-22 18:38:29.008583",
+          "end_time": "2025-10-22 18:38:46.567993",
+          "duration": 17.55941,
+          "findings": [
+            {
+              "id": "finding_1761143924.896067",
+              "title": "Horizontal Scroll on Mobile",
+              "description": "Page causes horizontal scrolling on mobile (702px > 375px)",
+              "severity": "medium",
+              "category": "visual",
+              "url": "http://testphp.vulnweb.com",
+              "method": null,
+              "parameters": null,
+              "evidence": [],
+              "recommendations": [],
+              "cwe_id": null,
+              "owasp_category": null,
+              "cvss_score": null,
+              "timestamp": "2025-10-22 18:38:44.896089",
+              "metadata": {}
+            }
+          ],
+          "metadata": {},
+          "error_message": null
+        }
+      ],
+      "summary": {
+        "total_tests": 1,
+        "passed": 1,
+        "failed": 0,
+        "error": 0,
+        "skipped": 0,
+        "total_findings": 1,
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "info": 0
+      }
+    }
+  ],
+  "crawled_urls": [],
+  "summary": {
+    "total_modules": 7,
+    "total_tests": 31,
+    "total_findings": 31,
+    "critical_findings": 1,
+    "high_findings": 7,
+    "medium_findings": 11,
+    "low_findings": 10,
+    "info_findings": 2,
+    "urls_crawled": 0,
+    "duration_seconds": 27.102531
+  },
+  "config": {
+    "target": {
+      "url": "http://testphp.vulnweb.com",
+      "base_url": "",
+      "auth": {
+        "enabled": false,
+        "type": "none",
+        "username": "",
+        "password": "",
+        "token": "",
+        "custom_headers": {}
+      },
+      "cookies": {},
+      "headers": {
+        "User-Agent": "WebTestool/1.0 (Automated Testing Framework)"
+      }
+    },
+    "crawler": {
+      "enabled": false,
+      "max_depth": 5,
+      "max_pages": 10,
+      "follow_external": false,
+      "respect_robots_txt": true,
+      "ignore_query_params": false,
+      "include_patterns": [],
+      "exclude_patterns": [
+        ".*logout.*",
+        ".*signout.*"
+      ],
+      "allowed_domains": [],
+      "crawl_delay": 0.5,
+      "concurrent_requests": 10,
+      "timeout": 30
+    },
+    "modules": {
+      "security": {
+        "enabled": true,
+        "aggressive_mode": false,
+        "sql_injection": {
+          "enabled": true,
+          "payloads_file": "payloads/sqli.txt",
+          "test_types": [
+            "union",
+            "boolean",
+            "time",
+            "error"
+          ]
+        },
+        "xss": {
+          "enabled": true,
+          "payloads_file": "payloads/xss.txt",
+          "test_types": [
+            "reflected",
+            "stored",
+            "dom"
+          ]
+        },
+        "xxe": {
+          "enabled": true
+        },
+        "ssrf": {
+          "enabled": true
+        },
+        "command_injection": {
+          "enabled": true
+        },
+        "path_traversal": {
+          "enabled": true,
+          "payloads_file": "payloads/lfi.txt"
+        },
+        "csrf": {
+          "enabled": true
+        },
+        "auth_bypass": {
+          "enabled": true
+        },
+        "session_management": {
+          "enabled": true
+        },
+        "jwt_security": {
+          "enabled": true
+        },
+        "security_headers": {
+          "enabled": true,
+          "required_headers": [
+            "X-Frame-Options",
+            "X-Content-Type-Options",
+            "Strict-Transport-Security",
+            "Content-Security-Policy",
+            "X-XSS-Protection"
+          ]
+        },
+        "ssl_tls": {
+          "enabled": true,
+          "minimum_version": "TLSv1.2",
+          "check_certificate": true,
+          "check_cipher_suites": true
+        },
+        "cors": {
+          "enabled": true
+        },
+        "cookies_security": {
+          "enabled": true,
+          "check_httponly": true,
+          "check_secure": true,
+          "check_samesite": true
+        },
+        "info_disclosure": {
+          "enabled": true,
+          "check_error_pages": true,
+          "check_comments": true,
+          "check_metadata": true
+        },
+        "clickjacking": {
+          "enabled": true
+        },
+        "open_redirect": {
+          "enabled": true
+        },
+        "insecure_deserialization": {
+          "enabled": true
+        }
+      },
+      "performance": {
+        "enabled": true,
+        "load_test": {
+          "enabled": true,
+          "users": 50,
+          "spawn_rate": 10,
+          "duration": 300
+        },
+        "stress_test": {
+          "enabled": true,
+          "max_users": 500
+        },
+        "response_time": {
+          "enabled": true,
+          "threshold_warning": 1000,
+          "threshold_critical": 3000
+        },
+        "resource_analysis": {
+          "enabled": true,
+          "check_compression": true,
+          "check_caching": true,
+          "check_minification": true
+        },
+        "lighthouse": {
+          "enabled": true,
+          "categories": [
+            "performance",
+            "accessibility",
+            "best-practices",
+            "seo"
+          ]
+        }
+      },
+      "functional": {
+        "enabled": true,
+        "forms": {
+          "enabled": true,
+          "test_validation": true,
+          "test_submission": true
+        },
+        "navigation": {
+          "enabled": true,
+          "test_links": true
+        },
+        "javascript": {
+          "enabled": true,
+          "test_ajax": true,
+          "test_dynamic_content": true
+        },
+        "ui_components": {
+          "enabled": true,
+          "test_modals": true,
+          "test_dropdowns": true
+        },
+        "error_handling": {
+          "enabled": true,
+          "test_404": true
+        }
+      },
+      "api": {
+        "enabled": true,
+        "rest": {
+          "enabled": true,
+          "discover_endpoints": true,
+          "test_methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ],
+          "test_authentication": true,
+          "test_rate_limiting": true
+        },
+        "graphql": {
+          "enabled": true,
+          "introspection": true,
+          "test_mutations": true,
+          "test_queries": true
+        },
+        "websocket": {
+          "enabled": true
+        },
+        "schema_validation": {
+          "enabled": true
+        },
+        "response_validation": {
+          "enabled": true,
+          "check_status_codes": true,
+          "check_content_type": true,
+          "check_response_time": true
+        }
+      },
+      "compatibility": {
+        "enabled": true,
+        "browsers": {
+          "enabled": true,
+          "list": [
+            "chromium",
+            "firefox",
+            "webkit"
+          ]
+        },
+        "responsive": {
+          "enabled": true,
+          "viewports": [
+            {
+              "name": "mobile",
+              "width": 375,
+              "height": 667
+            },
+            {
+              "name": "tablet",
+              "width": 768,
+              "height": 1024
+            },
+            {
+              "name": "desktop",
+              "width": 1920,
+              "height": 1080
+            },
+            {
+              "name": "4k",
+              "width": 3840,
+              "height": 2160
+            }
+          ]
+        },
+        "user_agents": {
+          "enabled": true,
+          "test_mobile": true,
+          "test_tablet": true,
+          "test_desktop": true
+        }
+      },
+      "accessibility": {
+        "enabled": true,
+        "standard": "WCAG21AAA",
+        "checks": [
+          "color-contrast",
+          "keyboard-navigation",
+          "screen-reader",
+          "aria-attributes",
+          "semantic-html",
+          "form-labels",
+          "heading-hierarchy",
+          "image-alt-text",
+          "focus-management",
+          "language-attribute"
+        ]
+      },
+      "seo": {
+        "enabled": true,
+        "meta_tags": {
+          "enabled": true,
+          "required_tags": [
+            "title",
+            "description",
+            "viewport"
+          ]
+        },
+        "structured_data": {
+          "enabled": true,
+          "validate_schema": true
+        },
+        "open_graph": {
+          "enabled": true
+        },
+        "twitter_cards": {
+          "enabled": true
+        },
+        "robots": {
+          "enabled": true,
+          "check_robots_txt": true,
+          "check_meta_robots": true
+        },
+        "sitemap": {
+          "enabled": true,
+          "validate_xml": true
+        },
+        "canonical": {
+          "enabled": true
+        },
+        "hreflang": {
+          "enabled": true
+        },
+        "page_speed": {
+          "enabled": true
+        },
+        "mobile_friendly": {
+          "enabled": true
+        },
+        "internal_links": {
+          "enabled": true,
+          "check_broken_links": true
+        },
+        "heading_structure": {
+          "enabled": true
+        },
+        "image_optimization": {
+          "enabled": true
+        }
+      },
+      "infrastructure": {
+        "enabled": true,
+        "dns": {
+          "enabled": true,
+          "check_records": [
+            "A",
+            "AAAA",
+            "MX",
+            "TXT",
+            "CNAME"
+          ],
+          "check_dnssec": true
+        },
+        "ssl": {
+          "enabled": true,
+          "check_expiry": true,
+          "check_chain": true,
+          "check_revocation": true
+        },
+        "http_protocol": {
+          "enabled": true,
+          "check_http2": true,
+          "check_http3": true
+        },
+        "compression": {
+          "enabled": true
+        },
+        "caching": {
+          "enabled": true
+        },
+        "cdn": {
+          "enabled": true,
+          "detect_cdn": true
+        },
+        "port_scan": {
+          "enabled": false,
+          "ports": [
+            80,
+            443,
+            8080,
+            8443
+          ]
+        },
+        "server_info": {
+          "enabled": true,
+          "detect_technologies": true,
+          "detect_cms": true,
+          "detect_frameworks": true
+        },
+        "waf_detection": {
+          "enabled": true
+        }
+      },
+      "visual": {
+        "enabled": true,
+        "screenshot_comparison": true,
+        "threshold": 0.1,
+        "baseline_dir": "baselines/"
+      },
+      "data": {
+        "enabled": true,
+        "validation": {
+          "enabled": true,
+          "test_types": true,
+          "test_formats": true,
+          "test_ranges": true
+        },
+        "sanitization": {
+          "enabled": true,
+          "test_html_entities": true,
+          "test_special_chars": true
+        },
+        "encoding": {
+          "enabled": true,
+          "test_unicode": true,
+          "test_utf8": true
+        }
+      },
+      "business_logic": {
+        "enabled": false,
+        "custom_scenarios": []
+      }
+    },
+    "reporting": {
+      "output_dir": "reports_test",
+      "formats": {
+        "html": {
+          "enabled": true,
+          "template": "templates/report.html"
+        },
+        "json": {
+          "enabled": true,
+          "pretty_print": true
+        },
+        "pdf": {
+          "enabled": true
+        },
+        "xml": {
+          "enabled": true
+        },
+        "csv": {
+          "enabled": true
+        },
+        "markdown": {
+          "enabled": true
+        }
+      },
+      "severity_levels": {
+        "critical": true,
+        "high": true,
+        "medium": true,
+        "low": true,
+        "info": true
+      },
+      "include_evidence": true,
+      "include_screenshots": true,
+      "include_recommendations": true
+    },
+    "database": {
+      "type": "sqlite",
+      "path": "data/testool.db",
+      "host": "localhost",
+      "port": 5432,
+      "username": "",
+      "password": "",
+      "database_name": "testool"
+    },
+    "dashboard": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 8080,
+      "debug": false,
+      "real_time_updates": true
+    },
+    "logging": {
+      "level": "INFO",
+      "file": "logs/testool.log",
+      "console": true,
+      "max_size": "100MB",
+      "backup_count": 5
+    },
+    "advanced": {
+      "parallel_execution": true,
+      "max_workers": 10,
+      "retry_failed_tests": true,
+      "retry_count": 3,
+      "random_user_agents": true,
+      "proxy": {
+        "enabled": false,
+        "http": "",
+        "https": ""
+      },
+      "rate_limiting": {
+        "enabled": true,
+        "requests_per_second": 10
+      },
+      "screenshots_on_failure": true,
+      "video_recording": false
+    },
+    "notifications": {
+      "enabled": false,
+      "email": {
+        "enabled": false,
+        "smtp_host": "",
+        "smtp_port": 587,
+        "username": "",
+        "password": "",
+        "recipients": []
+      },
+      "slack": {
+        "enabled": false,
+        "webhook_url": ""
+      },
+      "discord": {
+        "enabled": false,
+        "webhook_url": ""
+      },
+      "teams": {
+        "enabled": false,
+        "webhook_url": ""
+      },
+      "webhook": {
+        "enabled": false,
+        "url": ""
+      }
+    }
+  }
+}

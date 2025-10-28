@@ -1,0 +1,414 @@
+# Full Comprehensive Scan Template
+# Complete security, performance, SEO, and accessibility audit
+# Duration: 15-45 minutes
+# Use case: Complete website audit, compliance reporting, deep analysis
+
+# Target Configuration
+target:
+  url: "https://example.com"  # Replace with your URL
+
+  auth:
+    type: "session"
+    login_url: "/login"
+    credentials:
+      username: "{{ SECRET:full:username }}"
+      password: "{{ SECRET:full:password }}"
+
+  headers:
+    User-Agent: "WebTestool/2.0 Full Scanner"
+    Accept: "*/*"
+
+# Crawler Configuration - Comprehensive
+crawler:
+  max_pages: 1000
+  max_depth: 10
+  crawl_delay: 0.5
+
+  respect_robots_txt: true
+  follow_redirects: true
+  follow_forms: true
+
+  # Crawl everything
+  include_patterns:
+    - "/*"
+
+  exclude_patterns:
+    - "/admin/delete/*"
+    - "/logout"
+
+# Modules Configuration - All modules enabled
+modules:
+  # Security - Comprehensive testing
+  security:
+    enabled: true
+    priority: critical
+
+    tests:
+      # Injection Attacks
+      - sql_injection:
+          enabled: true
+          aggressive: true
+          test_parameters: true
+          test_cookies: true
+          test_headers: true
+
+      - xss:
+          enabled: true
+          test_reflected: true
+          test_stored: true
+          test_dom: true
+
+      - command_injection:
+          enabled: true
+          test_system_commands: true
+
+      - ldap_injection:
+          enabled: true
+
+      - xml_injection:
+          enabled: true
+
+      - ssi_injection:
+          enabled: true
+
+      # Authentication & Authorization
+      - authentication:
+          enabled: true
+          test_brute_force: false
+          test_session_fixation: true
+          test_session_timeout: true
+          check_password_policy: true
+
+      - authorization:
+          enabled: true
+          test_idor: true
+          test_privilege_escalation: true
+          test_path_traversal: true
+
+      # CSRF
+      - csrf:
+          enabled: true
+          test_forms: true
+          test_ajax: true
+          test_state_changing: true
+
+      # SSRF
+      - ssrf:
+          enabled: true
+          test_url_parameters: true
+          test_file_upload: true
+
+      # XXE
+      - xxe:
+          enabled: true
+          test_xml_endpoints: true
+
+      # Deserialization
+      - deserialization:
+          enabled: true
+
+      # File Upload
+      - file_upload:
+          enabled: true
+          test_malicious_files: true
+          test_mime_type_bypass: true
+
+      # Information Disclosure
+      - information_disclosure:
+          enabled: true
+          check_comments: true
+          check_errors: true
+          check_debug_info: true
+          check_source_code: true
+
+      # Security Headers
+      - headers:
+          enabled: true
+          required_headers:
+            - "Content-Security-Policy"
+            - "X-Frame-Options"
+            - "X-Content-Type-Options"
+            - "Strict-Transport-Security"
+            - "Referrer-Policy"
+            - "Permissions-Policy"
+
+      # SSL/TLS
+      - ssl:
+          enabled: true
+          check_certificate: true
+          check_protocols: true
+          check_cipher_suites: true
+          minimum_tls_version: "1.2"
+
+      # Clickjacking
+      - clickjacking:
+          enabled: true
+
+      # Open Redirect
+      - open_redirect:
+          enabled: true
+
+      # CORS
+      - cors:
+          enabled: true
+          check_misconfiguration: true
+
+  # Performance - Complete analysis
+  performance:
+    enabled: true
+    priority: high
+
+    tests:
+      # Page Speed
+      - page_speed:
+          enabled: true
+          threshold_ms: 3000
+          measure_ttfb: true
+          measure_fcp: true
+          measure_lcp: true
+          measure_tti: true
+
+      # Load Testing
+      - load_test:
+          enabled: true
+          concurrent_users: 100
+          duration: 300
+          ramp_up: 30
+
+      # Resource Optimization
+      - resource_optimization:
+          enabled: true
+          check_image_optimization: true
+          check_css_minification: true
+          check_js_minification: true
+          check_gzip_compression: true
+          check_caching: true
+          check_cdn: true
+
+      # Database Performance
+      - database:
+          enabled: true
+          check_slow_queries: true
+          check_n_plus_one: true
+
+      # Memory Usage
+      - memory:
+          enabled: true
+          check_memory_leaks: true
+
+  # SEO - Complete audit
+  seo:
+    enabled: true
+    priority: medium
+
+    tests:
+      # On-page SEO
+      - meta_tags:
+          enabled: true
+          check_title: true
+          check_description: true
+          check_keywords: true
+          check_og_tags: true
+          check_twitter_cards: true
+
+      # Technical SEO
+      - robots:
+          enabled: true
+          check_robots_txt: true
+          check_meta_robots: true
+
+      - sitemap:
+          enabled: true
+          check_xml_sitemap: true
+          check_html_sitemap: true
+
+      - canonical:
+          enabled: true
+          check_canonical_tags: true
+          check_duplicate_content: true
+
+      - structured_data:
+          enabled: true
+          check_schema_markup: true
+          validate_json_ld: true
+
+      # Content SEO
+      - content:
+          enabled: true
+          check_headings: true
+          check_images_alt: true
+          check_internal_links: true
+          check_broken_links: true
+
+      # Mobile SEO
+      - mobile:
+          enabled: true
+          check_mobile_friendly: true
+          check_responsive: true
+
+  # Accessibility - WCAG 2.1 AA
+  accessibility:
+    enabled: true
+    priority: medium
+
+    wcag_level: "AA"
+    wcag_version: "2.1"
+
+    tests:
+      - text_alternatives:
+          enabled: true
+          check_image_alt: true
+
+      - keyboard_accessible:
+          enabled: true
+          check_keyboard_access: true
+
+      - distinguishable:
+          enabled: true
+          check_color_contrast: true
+
+      - navigable:
+          enabled: true
+          check_headings_hierarchy: true
+
+      - input_assistance:
+          enabled: true
+          check_form_labels: true
+
+  # API Testing (if applicable)
+  api:
+    enabled: true
+    priority: low
+
+    tests:
+      - rest_api:
+          enabled: true
+          test_methods: true
+
+      - graphql:
+          enabled: true
+          test_introspection: true
+
+  # Functional Testing
+  functional:
+    enabled: true
+    priority: low
+
+    tests:
+      - forms:
+          enabled: true
+          test_validation: true
+          test_submission: false
+
+      - navigation:
+          enabled: true
+          test_links: true
+          test_menus: true
+
+      - search:
+          enabled: true
+          test_functionality: true
+
+# Reporting - Comprehensive
+reporting:
+  format: "html"
+  output_dir: "reports"
+
+  sections:
+    - "executive_summary"
+    - "security_overview"
+    - "performance_overview"
+    - "seo_overview"
+    - "accessibility_overview"
+    - "detailed_findings"
+    - "vulnerabilities"
+    - "recommendations"
+    - "compliance_status"
+    - "trends"
+
+  # Include everything
+  include_screenshots: true
+  include_code_examples: true
+  include_curl_examples: true
+  include_remediation_steps: true
+
+  # Export all formats
+  exports:
+    - "html"
+    - "pdf"
+    - "json"
+    - "csv"
+    - "xml"
+
+  # Detailed severity breakdown
+  severity_levels:
+    critical: true
+    high: true
+    medium: true
+    low: true
+    info: true
+
+# Tools Integration
+tools:
+  # Automated scanning tools
+  axe_core:
+    enabled: true
+
+  lighthouse:
+    enabled: true
+
+  owasp_zap:
+    enabled: false  # Requires separate installation
+
+# Compliance Checks
+compliance:
+  standards:
+    - "OWASP Top 10"
+    - "PCI DSS"
+    - "GDPR"
+    - "HIPAA"
+    - "WCAG 2.1 AA"
+    - "ISO 27001"
+
+# Notifications
+notifications:
+  enabled: true
+
+  on_critical:
+    email: "security@example.com"
+    slack: "{{ SECRET:notifications:slack }}"
+
+  on_complete:
+    email: "team@example.com"
+    include_summary: true
+    include_report_link: true
+
+# Scheduling
+schedule:
+  enabled: false
+  cron: "0 2 * * 0"  # Every Sunday at 2 AM
+
+# Cache
+cache:
+  enabled: true
+  ttl: 3600
+
+# Rate Limiting - Respectful
+rate_limit:
+  requests_per_second: 10
+  max_concurrent: 5
+  backoff_on_429: true
+
+# Logging - Detailed
+logging:
+  level: "DEBUG"
+  file: "logs/full_scan.log"
+  rotate: true
+  max_size_mb: 500
+  retention_days: 30
+
+  # Log everything
+  log_requests: true
+  log_responses: false  # Too large
+  log_errors: true
+  log_warnings: true

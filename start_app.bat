@@ -1,0 +1,3 @@
+@echo off
+echo Starting WebTestool Desktop Application...
+python app.py

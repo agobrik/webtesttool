@@ -1,0 +1,381 @@
+# WordPress Security Testing Template
+# Optimized for WordPress websites, themes, and plugins
+# Focus: WordPress-specific vulnerabilities, plugin security, configuration issues
+
+# Target Configuration
+target:
+  url: "https://example.com"  # Replace with your WordPress site
+
+  auth:
+    type: "wordpress"
+    login_url: "/wp-login.php"
+    admin_url: "/wp-admin"
+    credentials:
+      username: "{{ SECRET:wordpress:username }}"
+      password: "{{ SECRET:wordpress:password }}"
+
+  headers:
+    User-Agent: "WebTestool/2.0 WordPress Scanner"
+
+# Crawler Configuration
+crawler:
+  max_pages: 500
+  max_depth: 5
+  crawl_delay: 0.5
+
+  # WordPress-specific paths
+  include_patterns:
+    - "/*"
+    - "/wp-content/*"
+    - "/wp-includes/*"
+
+  exclude_patterns:
+    - "/wp-admin/*"  # Avoid admin area in crawling
+    - "/wp-login.php"
+
+  # Follow WordPress structure
+  check_common_paths: true
+
+# Modules Configuration
+modules:
+  # WordPress-specific testing
+  wordpress:
+    enabled: true
+    priority: critical
+
+    tests:
+      # Version Detection
+      - version_detection:
+          enabled: true
+          check_readme: true
+          check_rss: true
+          check_meta_generator: true
+          check_css_js_versions: true
+
+      # Plugin Enumeration
+      - plugin_enumeration:
+          enabled: true
+          methods:
+            - "passive"  # From HTML, CSS, JS
+            - "active"   # Try common paths
+          check_vulnerabilities: true
+          vulnerability_db: "wpvulndb"
+
+      # Theme Enumeration
+      - theme_enumeration:
+          enabled: true
+          detect_active_theme: true
+          check_vulnerabilities: true
+
+      # User Enumeration
+      - user_enumeration:
+          enabled: true
+          methods:
+            - "author_pages"  # ?author=1
+            - "rest_api"      # /wp-json/wp/v2/users
+            - "login_errors"  # Login error messages
+
+      # XML-RPC
+      - xmlrpc:
+          enabled: true
+          check_enabled: true
+          test_pingback: true
+          test_brute_force: false  # Can be aggressive
+          test_ddos_vectors: true
+
+      # REST API
+      - rest_api:
+          enabled: true
+          check_user_exposure: true
+          check_post_exposure: true
+          check_authentication: true
+          test_endpoints:
+            - "/wp-json/wp/v2/users"
+            - "/wp-json/wp/v2/posts"
+            - "/wp-json/wp/v2/pages"
+
+      # Login Security
+      - login_security:
+          enabled: true
+          test_weak_passwords: false  # Avoid lockouts
+          check_login_lockout: true
+          check_captcha: true
+          check_2fa: true
+          test_username_enumeration: true
+
+      # File Permissions
+      - file_permissions:
+          enabled: true
+          check_wp_config: true
+          check_htaccess: true
+          check_upload_dir: true
+          check_plugin_files: true
+
+      # Directory Listing
+      - directory_listing:
+          enabled: true
+          check_uploads: true
+          check_plugins: true
+          check_themes: true
+          check_includes: true
+
+      # Backup Files
+      - backup_files:
+          enabled: true
+          common_backups:
+            - "wp-config.php.bak"
+            - "wp-config.php.old"
+            - "wp-config.php~"
+            - ".wp-config.php.swp"
+            - "backup.zip"
+            - "database.sql"
+
+      # Debug Mode
+      - debug_mode:
+          enabled: true
+          check_debug_log: true
+          check_error_display: true
+
+      # Update Status
+      - update_status:
+          enabled: true
+          check_core_updates: true
+          check_plugin_updates: true
+          check_theme_updates: true
+
+      # Common Vulnerabilities
+      - common_vulnerabilities:
+          enabled: true
+          test_timthumb: true
+          test_revslider: true
+          test_gravityforms: true
+          test_wpml: true
+
+  # Security Module
+  security:
+    enabled: true
+    priority: high
+
+    tests:
+      # SQL Injection
+      - sql_injection:
+          enabled: true
+          test_parameters: true
+          test_search: true
+          test_post_meta: true
+
+          # WordPress-specific injection points
+          wordpress_specific:
+            - "s="  # Search parameter
+            - "cat="  # Category parameter
+            - "tag="  # Tag parameter
+            - "p="    # Post ID
+
+      # XSS
+      - xss:
+          enabled: true
+          test_comments: true
+          test_search: true
+          test_custom_fields: true
+
+      # CSRF
+      - csrf:
+          enabled: true
+          check_nonces: true
+          test_forms: true
+          test_ajax: true
+
+      # File Upload
+      - file_upload:
+          enabled: true
+          test_media_upload: true
+          test_plugin_upload: true
+          test_theme_upload: true
+          test_malicious_files: true
+
+      # Authentication
+      - authentication:
+          enabled: true
+          test_brute_force: false
+          test_session_fixation: true
+          check_password_reset: true
+
+      # Authorization
+      - authorization:
+          enabled: true
+          test_privilege_escalation: true
+          test_plugin_access: true
+          test_api_access: true
+
+      # SSL/TLS
+      - ssl:
+          enabled: true
+          check_certificate: true
+          check_mixed_content: true
+          force_https: true
+
+      # Security Headers
+      - headers:
+          enabled: true
+          required_headers:
+            - "Content-Security-Policy"
+            - "X-Frame-Options"
+            - "X-Content-Type-Options"
+            - "Strict-Transport-Security"
+
+      # Information Disclosure
+      - information_disclosure:
+          enabled: true
+          check_phpinfo: true
+          check_readme_files: true
+          check_license_files: true
+          check_changelog: true
+
+  # Performance Testing
+  performance:
+    enabled: true
+    priority: medium
+
+    tests:
+      - page_speed:
+          enabled: true
+          threshold_ms: 3000
+          check_caching: true
+          check_cdn: true
+
+      - database_queries:
+          enabled: true
+          check_slow_queries: true
+          check_query_count: true
+
+      - resource_optimization:
+          enabled: true
+          check_image_optimization: true
+          check_minification: true
+          check_lazy_loading: true
+
+  # SEO
+  seo:
+    enabled: true
+    priority: low
+
+    tests:
+      - wordpress_seo:
+          enabled: true
+          check_yoast: true
+          check_rank_math: true
+          check_permalinks: true
+          check_sitemaps: true
+
+# WordPress-specific Checks
+wordpress:
+  # Core Files Integrity
+  integrity_check:
+    enabled: true
+    compare_with_clean_install: true
+    check_core_files: true
+
+  # Database Security
+  database:
+    check_prefix: true
+    default_prefix: "wp_"
+    check_table_prefix_changed: true
+
+  # Configuration
+  config:
+    check_security_keys: true
+    check_debug_mode: false
+    check_file_editor: true
+    check_auto_update: true
+
+  # Common Plugins to Check
+  plugins_to_check:
+    - "wordfence"
+    - "akismet"
+    - "jetpack"
+    - "contact-form-7"
+    - "woocommerce"
+    - "elementor"
+    - "yoast-seo"
+
+# Reporting
+reporting:
+  format: "html"
+  output_dir: "reports/wordpress"
+
+  sections:
+    - "executive_summary"
+    - "wordpress_version"
+    - "plugin_vulnerabilities"
+    - "theme_vulnerabilities"
+    - "configuration_issues"
+    - "security_vulnerabilities"
+    - "hardening_recommendations"
+
+  # WordPress-specific reports
+  include_plugin_list: true
+  include_theme_list: true
+  include_user_list: false  # Sensitive information
+
+  exports:
+    - "html"
+    - "pdf"
+    - "json"
+
+# Vulnerability Database
+vulnerability_db:
+  enabled: true
+  sources:
+    - "wpvulndb"
+    - "wpscan"
+    - "cve"
+  update_frequency: "daily"
+
+# Hardening Recommendations
+hardening:
+  enabled: true
+
+  recommendations:
+    - "Change default table prefix"
+    - "Disable file editing"
+    - "Use security keys"
+    - "Disable XML-RPC if not needed"
+    - "Hide WordPress version"
+    - "Disable user enumeration"
+    - "Enable auto-updates"
+    - "Use strong passwords"
+    - "Enable 2FA"
+    - "Regular backups"
+    - "Security plugin (Wordfence, Sucuri)"
+    - "Limit login attempts"
+    - "Change default admin username"
+
+# Notifications
+notifications:
+  enabled: true
+
+  on_critical:
+    email: "security@example.com"
+    include_details: true
+
+  on_vulnerable_plugin:
+    email: "dev-team@example.com"
+    include_cve: true
+
+# Cache
+cache:
+  enabled: true
+  ttl: 3600
+
+# Rate Limiting
+rate_limit:
+  requests_per_second: 5
+  max_concurrent: 3
+  backoff_on_429: true
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/wordpress_scan.log"
+  rotate: true
+  max_size_mb: 100

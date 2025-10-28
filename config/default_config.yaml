@@ -1,0 +1,572 @@
+# WebTestool Default Configuration
+
+# Target Configuration
+target:
+  url: ""
+  base_url: ""
+
+  # Authentication
+  auth:
+    enabled: false
+    type: "none"  # none, basic, digest, bearer, oauth2, custom
+    username: ""
+    password: ""
+    token: ""
+    custom_headers: {}
+
+  # Cookies
+  cookies: {}
+
+  # Custom Headers
+  headers:
+    User-Agent: "WebTestool/1.0 (Automated Testing Framework)"
+
+# Crawler Configuration
+crawler:
+  enabled: true
+  max_depth: 5
+  max_pages: 1000
+  follow_external: false
+  respect_robots_txt: true
+  ignore_query_params: false
+  include_patterns: []
+  exclude_patterns:
+    - ".*logout.*"
+    - ".*signout.*"
+  allowed_domains: []
+  crawl_delay: 0.5
+  concurrent_requests: 10
+  timeout: 30
+
+# Cache Configuration
+cache:
+  enabled: true
+
+  # Redis Cache (L2)
+  redis:
+    enabled: true
+    url: "redis://localhost:6379"
+    db: 0
+    password: ""
+    ssl: false
+    socket_timeout: 5
+    socket_connect_timeout: 5
+
+  # Memory Cache (L1)
+  memory:
+    max_size: 1000  # Maximum items in memory cache
+    ttl: 3600  # Time to live in seconds (1 hour)
+
+  # Disk Cache (L3)
+  disk:
+    enabled: true
+    directory: ".cache/"
+    max_size_mb: 500  # Maximum disk cache size in MB
+    ttl: 86400  # Time to live in seconds (24 hours)
+
+  # Cache Strategy
+  strategy:
+    # Auto-promote frequently accessed items to faster tiers
+    auto_promote: true
+    # Cache HTTP responses
+    cache_responses: true
+    # Cache parsed HTML
+    cache_parsed_html: true
+    # Cache API responses
+    cache_api_responses: true
+    # Invalidate cache after this many seconds
+    invalidate_after: 3600
+
+# Module Configuration
+modules:
+  # Security Testing
+  security:
+    enabled: true
+    aggressive_mode: false
+
+    # Injection Tests
+    sql_injection:
+      enabled: true
+      payloads_file: "payloads/sqli.txt"
+      test_types: ["union", "boolean", "time", "error"]
+
+    xss:
+      enabled: true
+      payloads_file: "payloads/xss.txt"
+      test_types: ["reflected", "stored", "dom"]
+
+    xxe:
+      enabled: true
+
+    ssrf:
+      enabled: true
+
+    command_injection:
+      enabled: true
+
+    path_traversal:
+      enabled: true
+      payloads_file: "payloads/lfi.txt"
+
+    csrf:
+      enabled: true
+
+    # Authentication & Session
+    auth_bypass:
+      enabled: true
+
+    session_management:
+      enabled: true
+
+    jwt_security:
+      enabled: true
+
+    # Configuration Security
+    security_headers:
+      enabled: true
+      required_headers:
+        - "X-Frame-Options"
+        - "X-Content-Type-Options"
+        - "Strict-Transport-Security"
+        - "Content-Security-Policy"
+        - "X-XSS-Protection"
+
+    ssl_tls:
+      enabled: true
+      minimum_version: "TLSv1.2"
+      check_certificate: true
+      check_cipher_suites: true
+
+    cors:
+      enabled: true
+
+    cookies_security:
+      enabled: true
+      check_httponly: true
+      check_secure: true
+      check_samesite: true
+
+    # Information Disclosure
+    info_disclosure:
+      enabled: true
+      check_error_pages: true
+      check_comments: true
+      check_metadata: true
+
+    # Other
+    clickjacking:
+      enabled: true
+
+    open_redirect:
+      enabled: true
+
+    insecure_deserialization:
+      enabled: true
+
+  # Performance Testing
+  performance:
+    enabled: true
+
+    load_test:
+      enabled: true
+      users: 50
+      spawn_rate: 10
+      duration: 300  # seconds
+
+    stress_test:
+      enabled: true
+      max_users: 500
+
+    response_time:
+      enabled: true
+      threshold_warning: 1000  # ms
+      threshold_critical: 3000  # ms
+
+    resource_analysis:
+      enabled: true
+      check_compression: true
+      check_caching: true
+      check_minification: true
+
+    lighthouse:
+      enabled: true
+      categories: ["performance", "accessibility", "best-practices", "seo"]
+
+  # Functional Testing
+  functional:
+    enabled: true
+
+    forms:
+      enabled: true
+      test_validation: true
+      test_submission: true
+      test_edge_cases: true
+
+    navigation:
+      enabled: true
+      test_links: true
+      test_breadcrumbs: true
+      test_menus: true
+
+    ui_components:
+      enabled: true
+      test_modals: true
+      test_dropdowns: true
+      test_accordions: true
+      test_tooltips: true
+      test_tabs: true
+
+    workflows:
+      enabled: true
+      scenarios_file: "scenarios/workflows.yaml"
+
+    javascript:
+      enabled: true
+      test_ajax: true
+      test_dynamic_content: true
+
+    search:
+      enabled: true
+
+    error_handling:
+      enabled: true
+      test_404: true
+      test_500: true
+      test_validation_errors: true
+
+  # API Testing
+  api:
+    enabled: true
+
+    rest:
+      enabled: true
+      discover_endpoints: true
+      test_methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+      test_authentication: true
+      test_rate_limiting: true
+
+    graphql:
+      enabled: true
+      introspection: true
+      test_mutations: true
+      test_queries: true
+
+    websocket:
+      enabled: true
+
+    schema_validation:
+      enabled: true
+
+    response_validation:
+      enabled: true
+      check_status_codes: true
+      check_content_type: true
+      check_response_time: true
+
+  # Compatibility Testing
+  compatibility:
+    enabled: true
+
+    browsers:
+      enabled: true
+      list: ["chromium", "firefox", "webkit"]
+
+    responsive:
+      enabled: true
+      viewports:
+        - name: "mobile"
+          width: 375
+          height: 667
+        - name: "tablet"
+          width: 768
+          height: 1024
+        - name: "desktop"
+          width: 1920
+          height: 1080
+        - name: "4k"
+          width: 3840
+          height: 2160
+
+    user_agents:
+      enabled: true
+      test_mobile: true
+      test_tablet: true
+      test_desktop: true
+
+  # Accessibility Testing
+  accessibility:
+    enabled: true
+    standard: "WCAG21AAA"  # WCAG21A, WCAG21AA, WCAG21AAA
+
+    checks:
+      - "color-contrast"
+      - "keyboard-navigation"
+      - "screen-reader"
+      - "aria-attributes"
+      - "semantic-html"
+      - "form-labels"
+      - "heading-hierarchy"
+      - "image-alt-text"
+      - "focus-management"
+      - "language-attribute"
+
+  # SEO Testing
+  seo:
+    enabled: true
+
+    meta_tags:
+      enabled: true
+      required_tags:
+        - "title"
+        - "description"
+        - "viewport"
+
+    structured_data:
+      enabled: true
+      validate_schema: true
+
+    open_graph:
+      enabled: true
+
+    twitter_cards:
+      enabled: true
+
+    robots:
+      enabled: true
+      check_robots_txt: true
+      check_meta_robots: true
+
+    sitemap:
+      enabled: true
+      validate_xml: true
+
+    canonical:
+      enabled: true
+
+    hreflang:
+      enabled: true
+
+    page_speed:
+      enabled: true
+
+    mobile_friendly:
+      enabled: true
+
+    internal_links:
+      enabled: true
+      check_broken_links: true
+
+    heading_structure:
+      enabled: true
+
+    image_optimization:
+      enabled: true
+
+  # Infrastructure Testing
+  infrastructure:
+    enabled: true
+
+    dns:
+      enabled: true
+      check_records: ["A", "AAAA", "MX", "TXT", "CNAME"]
+      check_dnssec: true
+
+    ssl:
+      enabled: true
+      check_expiry: true
+      check_chain: true
+      check_revocation: true
+
+    http_protocol:
+      enabled: true
+      check_http2: true
+      check_http3: true
+
+    compression:
+      enabled: true
+
+    caching:
+      enabled: true
+
+    cdn:
+      enabled: true
+      detect_cdn: true
+
+    port_scan:
+      enabled: false  # Can be intrusive
+      ports: [80, 443, 8080, 8443]
+
+    server_info:
+      enabled: true
+      detect_technologies: true
+      detect_cms: true
+      detect_frameworks: true
+
+    waf_detection:
+      enabled: true
+
+  # Visual Regression Testing
+  visual:
+    enabled: true
+    screenshot_comparison: true
+    threshold: 0.1  # 10% difference threshold
+    baseline_dir: "baselines/"
+
+  # Data Testing
+  data:
+    enabled: true
+
+    validation:
+      enabled: true
+      test_types: true
+      test_formats: true
+      test_ranges: true
+
+    sanitization:
+      enabled: true
+      test_html_entities: true
+      test_special_chars: true
+
+    encoding:
+      enabled: true
+      test_unicode: true
+      test_utf8: true
+
+  # Functional Testing
+  functional:
+    enabled: true
+
+    forms:
+      enabled: true
+      test_validation: true
+      test_submission: true
+
+    navigation:
+      enabled: true
+      test_links: true
+
+    javascript:
+      enabled: true
+      test_ajax: true
+      test_dynamic_content: true
+
+    ui_components:
+      enabled: true
+      test_modals: true
+      test_dropdowns: true
+
+    error_handling:
+      enabled: true
+      test_404: true
+
+  # Business Logic Testing
+  business_logic:
+    enabled: false
+    custom_scenarios: []
+
+# Reporting Configuration
+reporting:
+  output_dir: "reports/"
+
+  formats:
+    html:
+      enabled: true
+      template: "templates/report.html"
+
+    json:
+      enabled: true
+      pretty_print: true
+
+    pdf:
+      enabled: true
+
+    xml:
+      enabled: true
+
+    csv:
+      enabled: true
+
+    markdown:
+      enabled: true
+
+  severity_levels:
+    critical: true
+    high: true
+    medium: true
+    low: true
+    info: true
+
+  include_evidence: true
+  include_screenshots: true
+  include_recommendations: true
+
+# Database Configuration
+database:
+  type: "sqlite"  # sqlite, postgresql, mysql
+  path: "data/testool.db"
+  host: "localhost"
+  port: 5432
+  username: ""
+  password: ""
+  database_name: "testool"
+
+# Dashboard Configuration
+dashboard:
+  enabled: true
+  host: "0.0.0.0"
+  port: 8080
+  debug: false
+  real_time_updates: true
+
+# Notification Configuration
+notifications:
+  enabled: false
+
+  email:
+    enabled: false
+    smtp_host: ""
+    smtp_port: 587
+    username: ""
+    password: ""
+    recipients: []
+
+  slack:
+    enabled: false
+    webhook_url: ""
+
+  discord:
+    enabled: false
+    webhook_url: ""
+
+  teams:
+    enabled: false
+    webhook_url: ""
+
+  webhook:
+    enabled: false
+    url: ""
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: "logs/testool.log"
+  console: true
+  max_size: "100MB"
+  backup_count: 5
+
+# Advanced Options
+advanced:
+  parallel_execution: true
+  max_workers: 10
+  retry_failed_tests: true
+  retry_count: 3
+  random_user_agents: true
+  proxy:
+    enabled: false
+    http: ""
+    https: ""
+  rate_limiting:
+    enabled: true
+    requests_per_second: 10
+  screenshots_on_failure: true
+  video_recording: false
