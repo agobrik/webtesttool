@@ -140,7 +140,35 @@ WebTestool/
 
 ## 🚀 Quick Start
 
-### Installation (Automated)
+### 🖥️ Desktop Application (Standalone - No Python Required!)
+
+**Download and run the desktop app directly - perfect for non-technical users!**
+
+#### Windows
+1. Download `WebTestool-Setup.exe` from [Releases](https://github.com/agobrik/webtesttool/releases)
+2. Run the installer
+3. Launch WebTestool from Start Menu or Desktop
+4. That's it! Start scanning websites immediately
+
+#### Linux/macOS
+1. Download `WebTestool-Linux.zip` or `WebTestool-macOS.zip` from [Releases](https://github.com/agobrik/webtesttool/releases)
+2. Extract the archive
+3. Run `./WebTestool`
+4. Start scanning!
+
+**Features:**
+- ✅ No Python installation needed
+- ✅ Beautiful modern UI
+- ✅ One-click complete scan
+- ✅ Real-time progress tracking
+- ✅ Interactive reports viewer
+- ✅ System health monitoring
+
+**See [DESKTOP_APP_BUILD.md](DESKTOP_APP_BUILD.md) for building from source.**
+
+---
+
+### 💻 Installation (For Developers)
 
 **Windows:**
 ```bash

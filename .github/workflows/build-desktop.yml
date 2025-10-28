@@ -1,0 +1,196 @@
+name: Build Desktop App
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 2.0.0)'
+        required: true
+        default: '2.0.0'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        pyinstaller webtestool.spec --clean --noconfirm
+
+    - name: Create data directories
+      run: |
+        mkdir dist\WebTestool\data
+        mkdir dist\WebTestool\logs
+        mkdir dist\WebTestool\reports
+
+    - name: Create zip
+      run: |
+        cd dist
+        Compress-Archive -Path WebTestool -DestinationPath WebTestool-Windows-x64.zip
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WebTestool-Windows
+        path: dist/WebTestool-Windows-x64.zip
+        retention-days: 7
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        pyinstaller webtestool.spec --clean --noconfirm
+
+    - name: Create data directories
+      run: |
+        mkdir -p dist/WebTestool/data
+        mkdir -p dist/WebTestool/logs
+        mkdir -p dist/WebTestool/reports
+
+    - name: Set permissions
+      run: chmod +x dist/WebTestool/WebTestool
+
+    - name: Create tarball
+      run: |
+        cd dist
+        tar -czf WebTestool-Linux-x64.tar.gz WebTestool/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WebTestool-Linux
+        path: dist/WebTestool-Linux-x64.tar.gz
+        retention-days: 7
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        pyinstaller webtestool.spec --clean --noconfirm
+
+    - name: Create data directories
+      run: |
+        mkdir -p dist/WebTestool/data
+        mkdir -p dist/WebTestool/logs
+        mkdir -p dist/WebTestool/reports
+
+    - name: Set permissions
+      run: chmod +x dist/WebTestool/WebTestool
+
+    - name: Create zip
+      run: |
+        cd dist
+        zip -r WebTestool-macOS-x64.zip WebTestool/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WebTestool-macOS
+        path: dist/WebTestool-macOS-x64.zip
+        retention-days: 7
+
+  create-release:
+    needs: [build-windows, build-linux, build-macos]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          artifacts/WebTestool-Windows/WebTestool-Windows-x64.zip
+          artifacts/WebTestool-Linux/WebTestool-Linux-x64.tar.gz
+          artifacts/WebTestool-macOS/WebTestool-macOS-x64.zip
+        body: |
+          # WebTestool Desktop Application
+
+          ## Installation
+
+          ### Windows
+          1. Download `WebTestool-Windows-x64.zip`
+          2. Extract to any folder
+          3. Run `WebTestool.exe`
+
+          ### Linux
+          1. Download `WebTestool-Linux-x64.tar.gz`
+          2. Extract: `tar -xzf WebTestool-Linux-x64.tar.gz`
+          3. Run: `./WebTestool/WebTestool`
+
+          ### macOS
+          1. Download `WebTestool-macOS-x64.zip`
+          2. Extract to Applications folder
+          3. Run `WebTestool`
+
+          ## Features
+          - ✅ No Python installation required
+          - ✅ Beautiful modern UI
+          - ✅ One-click complete scan
+          - ✅ 30+ security tests
+          - ✅ Performance & SEO analysis
+          - ✅ Professional reports
+
+          ## System Requirements
+          - Windows 10+, Ubuntu 20.04+, or macOS 11+
+          - 4GB RAM minimum
+          - Internet connection for scanning
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
