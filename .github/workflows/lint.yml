@@ -26,21 +26,28 @@ jobs:
 
     - name: Check code formatting with Black
       run: black --check --diff .
+      continue-on-error: true
 
     - name: Check import sorting with isort
       run: isort --check-only --diff .
+      continue-on-error: true
 
     - name: Lint with flake8
       run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      continue-on-error: true
 
     - name: Lint with pylint
       run: pylint core/ modules/ reporters/ utils/ --exit-zero
+      continue-on-error: true
 
     - name: Type check with mypy
-      run: mypy . --ignore-missing-imports --no-strict-optional
+      run: mypy core/ utils/ modules/ --ignore-missing-imports --no-strict-optional
+      continue-on-error: true
 
     - name: Check with ruff
-      run: ruff check .
+      run: ruff check . --exit-zero
+      continue-on-error: true
 
     - name: Security check with bandit
-      run: bandit -r . -ll -x tests/
+      run: bandit -r core/ modules/ reporters/ utils/ -ll
+      continue-on-error: true

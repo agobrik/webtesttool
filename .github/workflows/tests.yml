@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ['3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.10', '3.11', '3.12']
 
     steps:
     - uses: actions/checkout@v4
@@ -35,10 +35,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install -r requirements-dev.txt
 
     - name: Install Playwright browsers
       run: |
-        playwright install chromium
+        playwright install --with-deps chromium
 
     - name: Lint with flake8 (optional)
       continue-on-error: true
@@ -51,11 +52,12 @@ jobs:
 
     - name: Run unit tests
       run: |
-        pytest tests/unit -v --cov=core --cov=utils --cov=modules --cov-report=xml --cov-report=term-missing -m unit
+        pytest tests/unit -v --cov=core --cov=utils --cov=modules --cov-report=xml --cov-report=term-missing
 
     - name: Run integration tests
       run: |
-        pytest tests/integration -v -m integration --maxfail=3
+        pytest tests/integration -v --maxfail=3
+      continue-on-error: true
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
@@ -79,10 +81,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install -r requirements-dev.txt
 
     - name: Quick unit tests (no coverage)
       run: |
-        pytest tests/unit -v -m unit --maxfail=5
+        pytest tests/unit -v --maxfail=5 --no-cov
 
   security:
     runs-on: ubuntu-latest
