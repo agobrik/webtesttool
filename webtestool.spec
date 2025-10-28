@@ -18,6 +18,8 @@ datas = [
     ('payloads', 'payloads'),
     ('reporters/templates', 'reporters/templates'),
     ('README.md', '.'),
+    ('AUTHENTICATION_GUIDE.md', '.'),
+    ('DESKTOP_APP_BUILD.md', '.'),
     ('LICENSE', '.'),
 ]
 
