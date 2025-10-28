@@ -12,10 +12,12 @@ import subprocess
 import threading
 from pathlib import Path
 from datetime import datetime
+from loguru import logger
 
 sys.path.insert(0, str(Path(__file__).parent))
 from core import ConfigManager, TestEngine
 from reporters import ReportGenerator
+from cli.login_dialog import LoginDialog, SessionManager
 
 
 class WebTestoolApp:
@@ -1078,11 +1080,86 @@ class WebTestoolApp:
             on_change=lambda e: self.toggle_theme(e.control.value),
         )
 
+        # Session manager
+        session_manager = SessionManager(self.page)
+        saved_sessions = session_manager.get_saved_sessions()
+
+        def open_login_dialog(e):
+            """Open login configuration dialog"""
+            login_dialog = LoginDialog(self.page, on_login_complete=self.on_login_complete)
+            login_dialog.show()
+
+        def refresh_sessions(e):
+            """Refresh the settings page to show updated sessions"""
+            self.show_settings()
+
         self.content.content = ft.Container(
             content=ft.Column([
                 ft.Text("Settings", size=32, weight=ft.FontWeight.BOLD),
                 ft.Container(height=30),
 
+                # Authentication Section
+                ft.Row([
+                    ft.Icon(ft.Icons.LOCK, size=24, color=ft.Colors.BLUE),
+                    ft.Text("Authentication & Login", size=18, weight=ft.FontWeight.BOLD),
+                ], spacing=10),
+                ft.Container(height=10),
+                ft.Text(
+                    "Configure login credentials to scan protected/authenticated websites",
+                    size=12,
+                    color=ft.Colors.GREY_700
+                ),
+                ft.Container(height=15),
+
+                # Login buttons
+                ft.Row([
+                    ft.ElevatedButton(
+                        "Configure Login",
+                        icon=ft.Icons.LOGIN,
+                        on_click=open_login_dialog,
+                        style=ft.ButtonStyle(
+                            color=ft.Colors.WHITE,
+                            bgcolor=ft.Colors.BLUE,
+                        ),
+                    ),
+                    ft.OutlinedButton(
+                        "View Authentication Guide",
+                        icon=ft.Icons.HELP_OUTLINE,
+                        on_click=lambda _: self.open_file("AUTHENTICATION_GUIDE.md"),
+                    ),
+                ], spacing=10),
+
+                ft.Container(height=20),
+
+                # Saved Sessions
+                ft.Row([
+                    ft.Text("Saved Login Sessions", size=14, weight=ft.FontWeight.BOLD),
+                    ft.Text(f"({len(saved_sessions)})", size=14, color=ft.Colors.GREY_600),
+                    ft.IconButton(
+                        icon=ft.Icons.REFRESH,
+                        tooltip="Refresh",
+                        on_click=refresh_sessions,
+                    ),
+                ], spacing=5),
+                ft.Container(height=5),
+
+                # Session list or empty state
+                session_manager.create_session_manager_ui() if saved_sessions else ft.Container(
+                    content=ft.Column([
+                        ft.Icon(ft.Icons.INFO_OUTLINE, size=40, color=ft.Colors.GREY_400),
+                        ft.Text("No saved sessions", size=14, color=ft.Colors.GREY_600),
+                        ft.Text("Click 'Configure Login' to create a session", size=12, color=ft.Colors.GREY_500),
+                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
+                    padding=30,
+                    border=ft.border.all(1, ft.Colors.GREY_300),
+                    border_radius=10,
+                ),
+
+                ft.Container(height=30),
+                ft.Divider(),
+                ft.Container(height=20),
+
+                # Appearance Section
                 ft.Text("Appearance", size=18, weight=ft.FontWeight.BOLD),
                 ft.Container(height=10),
                 theme_switch,
@@ -1097,15 +1174,40 @@ class WebTestoolApp:
                 ft.Container(height=30),
                 ft.Text("Documentation", size=18, weight=ft.FontWeight.BOLD),
                 ft.Container(height=10),
-                ft.ElevatedButton(
-                    "User Guide",
-                    icon=ft.Icons.BOOK,
-                    on_click=lambda _: os.system("start SISTEM_KULLANIM_REHBERI.md"),
-                ),
+                ft.Row([
+                    ft.ElevatedButton(
+                        "User Guide",
+                        icon=ft.Icons.BOOK,
+                        on_click=lambda _: self.open_file("SISTEM_KULLANIM_REHBERI.md"),
+                    ),
+                    ft.ElevatedButton(
+                        "Authentication Guide",
+                        icon=ft.Icons.SECURITY,
+                        on_click=lambda _: self.open_file("AUTHENTICATION_GUIDE.md"),
+                    ),
+                ], spacing=10),
             ], scroll=ft.ScrollMode.AUTO),
             padding=30,
         )
         self.page.update()
+
+    def open_file(self, filename):
+        """Open a file with default application"""
+        try:
+            if sys.platform == 'win32':
+                os.system(f'start {filename}')
+            elif sys.platform == 'darwin':
+                os.system(f'open {filename}')
+            else:
+                os.system(f'xdg-open {filename}')
+        except Exception as e:
+            logger.error(f"Error opening file: {str(e)}")
+
+    def on_login_complete(self, login_automation):
+        """Callback when login completes"""
+        self.show_snack("✅ Login successful! Session saved", ft.Colors.GREEN)
+        # Refresh settings to show new session
+        self.show_settings()
 
     def toggle_theme(self, is_dark):
         self.page.theme_mode = ft.ThemeMode.DARK if is_dark else ft.ThemeMode.LIGHT
