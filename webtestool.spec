@@ -16,50 +16,52 @@ project_root = Path('.').absolute()
 datas = [
     ('config', 'config'),
     ('payloads', 'payloads'),
-    ('reporters/templates', 'reporters/templates'),
     ('README.md', '.'),
     ('AUTHENTICATION_GUIDE.md', '.'),
     ('DESKTOP_APP_BUILD.md', '.'),
     ('LICENSE', '.'),
 ]
 
-# Hidden imports that PyInstaller might miss
+# Hidden imports that PyInstaller might miss - ESSENTIAL ONLY
 hiddenimports = [
+    # Desktop UI
     'flet',
+    'flet.core',
+    'flet.cli',
+
+    # Browser automation
     'playwright',
     'playwright.sync_api',
     'playwright.async_api',
+
+    # HTTP clients
     'httpx',
     'aiohttp',
+
+    # HTML parsing
     'bs4',
     'lxml',
-    'sqlalchemy',
+
+    # Configuration & validation
     'pydantic',
     'pydantic_core',
     'pydantic_settings',
+
+    # Logging & UI
     'loguru',
     'rich',
     'click',
-    'jinja2',
+
+    # Reporting - minimal
     'reportlab',
     'openpyxl',
-    'matplotlib',
-    'PIL',
-    'numpy',
+
+    # Security
     'cryptography',
-    'dnspython',
-    'pyjwt',
-    'websockets',
-    'fastapi',
-    'uvicorn',
-    'dotenv',
-    'yaml',
-    'tqdm',
+
+    # Utilities
     'colorama',
-    'inquirer',
     'aiofiles',
-    'redis',
-    'aioredis',
 ]
 
 a = Analysis(
