@@ -77,6 +77,11 @@ baselines/
 *.sqlite
 *.sqlite3
 
+# Authentication (DO NOT COMMIT)
+data/sessions/
+data/login_config.json
+*.session
+
 # Environment variables
 .env
 .env.local

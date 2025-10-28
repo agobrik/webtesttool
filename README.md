@@ -10,6 +10,37 @@ An enterprise-grade, fully automated web testing framework that performs extensi
 
 ## 🌟 Features
 
+### 🔐 Authentication & Login Automation
+
+**Scan authenticated sites with ease!**
+
+Many websites require login to access content. WebTestool handles this automatically:
+
+- **Automatic Login**: Browser automation for seamless login
+- **Interactive Mode**: Manual login for CAPTCHA/2FA
+- **Session Management**: Save and reuse login sessions
+- **Multiple Methods**: Form-based, OAuth, API tokens, HTTP Auth
+- **Cookie Persistence**: Store and apply authentication cookies
+- **Desktop UI**: Easy login configuration with visual interface
+- **CLI Tools**: Command-line session management
+
+**Supported Auth Types:**
+- Form-based login (username/password)
+- OAuth/Social login (Google, Facebook, etc.)
+- API Token/Bearer authentication
+- HTTP Basic/Digest Auth
+- Cookie/Session import
+
+**Why it matters:**
+- ✅ Access protected content and admin panels
+- ✅ Test authenticated user flows
+- ✅ Comprehensive security testing
+- ✅ Realistic user experience testing
+
+**See [AUTHENTICATION_GUIDE.md](AUTHENTICATION_GUIDE.md) for detailed instructions.**
+
+---
+
 ### Security Testing (30+ Tests)
 - SQL Injection (all types: Union, Boolean, Time-based, Error-based)
 - Cross-Site Scripting (Reflected, Stored, DOM-based)
