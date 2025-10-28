@@ -36,6 +36,7 @@ class WebTestoolApp:
         # State
         self.current_view = "dashboard"
         self.scan_running = False
+        self.show_login_form = False  # Authentication form visibility
 
         # UI
         self.content = ft.Container(expand=True)
@@ -1084,10 +1085,104 @@ class WebTestoolApp:
         session_manager = SessionManager(self.page)
         saved_sessions = session_manager.get_saved_sessions()
 
-        def open_login_dialog(e):
-            """Open login configuration dialog"""
-            login_dialog = LoginDialog(self.page, on_login_complete=self.on_login_complete)
-            login_dialog.show()
+        # Login form fields
+        login_url_field = ft.TextField(
+            label="Login URL",
+            hint_text="https://example.com/login",
+            prefix_icon=ft.Icons.LINK,
+        )
+
+        username_field = ft.TextField(
+            label="Username/Email",
+            hint_text="user@example.com",
+            prefix_icon=ft.Icons.PERSON,
+        )
+
+        password_field = ft.TextField(
+            label="Password",
+            password=True,
+            can_reveal_password=True,
+            prefix_icon=ft.Icons.LOCK,
+        )
+
+        status_text = ft.Text("", size=14)
+        progress_ring = ft.ProgressRing(visible=False, width=20, height=20)
+
+        def toggle_login_form(e):
+            """Toggle login form visibility"""
+            self.show_login_form = not self.show_login_form
+            self.show_settings()
+
+        def perform_login(e, interactive=False):
+            """Perform login"""
+            # Validate
+            if not login_url_field.value:
+                status_text.value = "❌ Login URL is required"
+                status_text.color = ft.Colors.RED
+                self.page.update()
+                return
+
+            if not username_field.value:
+                status_text.value = "❌ Username is required"
+                status_text.color = ft.Colors.RED
+                self.page.update()
+                return
+
+            if not password_field.value:
+                status_text.value = "❌ Password is required"
+                status_text.color = ft.Colors.RED
+                self.page.update()
+                return
+
+            # Run login in background thread
+            def run_async_login():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                try:
+                    from core.login_automation import LoginAutomation
+
+                    config = {
+                        'login_url': login_url_field.value,
+                        'username': username_field.value,
+                        'password': password_field.value,
+                    }
+
+                    login_automation = LoginAutomation(config)
+
+                    if interactive:
+                        success = loop.run_until_complete(login_automation.interactive_login(headless=False))
+                    else:
+                        # Show progress
+                        progress_ring.visible = True
+                        status_text.value = "🔄 Logging in..."
+                        status_text.color = ft.Colors.BLUE
+                        self.page.update()
+
+                        success = loop.run_until_complete(login_automation.perform_login(headless=True))
+
+                    if success:
+                        status_text.value = "✅ Login successful! Session saved"
+                        status_text.color = ft.Colors.GREEN
+                        self.page.update()
+                        asyncio.sleep(1)
+                        self.show_login_form = False
+                        self.show_settings()
+                    else:
+                        status_text.value = "❌ Login failed. Try interactive mode."
+                        status_text.color = ft.Colors.RED
+                        self.page.update()
+
+                except Exception as ex:
+                    logger.error(f"Login error: {str(ex)}")
+                    status_text.value = f"❌ Error: {str(ex)}"
+                    status_text.color = ft.Colors.RED
+                    self.page.update()
+                finally:
+                    progress_ring.visible = False
+                    self.page.update()
+                    loop.close()
+
+            threading.Thread(target=run_async_login, daemon=True).start()
 
         def refresh_sessions(e):
             """Refresh the settings page to show updated sessions"""
@@ -1114,9 +1209,9 @@ class WebTestoolApp:
                 # Login buttons
                 ft.Row([
                     ft.ElevatedButton(
-                        "Configure Login",
-                        icon=ft.Icons.LOGIN,
-                        on_click=open_login_dialog,
+                        "Hide Login Form" if self.show_login_form else "Configure Login",
+                        icon=ft.Icons.EXPAND_LESS if self.show_login_form else ft.Icons.LOGIN,
+                        on_click=toggle_login_form,
                         style=ft.ButtonStyle(
                             color=ft.Colors.WHITE,
                             bgcolor=ft.Colors.BLUE,
@@ -1128,6 +1223,47 @@ class WebTestoolApp:
                         on_click=lambda _: self.open_file("AUTHENTICATION_GUIDE.md"),
                     ),
                 ], spacing=10),
+
+                ft.Container(height=15),
+
+                # Login Form (visible when show_login_form[0] is True)
+                ft.Container(
+                    content=ft.Column([
+                        ft.Text("Login Configuration", size=16, weight=ft.FontWeight.BOLD),
+                        ft.Container(height=10),
+                        login_url_field,
+                        username_field,
+                        password_field,
+                        ft.Container(height=15),
+                        ft.Row([progress_ring, status_text], spacing=10),
+                        ft.Container(height=15),
+                        ft.Row([
+                            ft.ElevatedButton(
+                                "Automatic Login",
+                                icon=ft.Icons.AUTO_MODE,
+                                on_click=lambda e: perform_login(e, interactive=False),
+                                style=ft.ButtonStyle(
+                                    color=ft.Colors.WHITE,
+                                    bgcolor=ft.Colors.GREEN,
+                                ),
+                            ),
+                            ft.ElevatedButton(
+                                "Interactive Login",
+                                icon=ft.Icons.BROWSER_UPDATED,
+                                on_click=lambda e: perform_login(e, interactive=True),
+                                style=ft.ButtonStyle(
+                                    color=ft.Colors.WHITE,
+                                    bgcolor=ft.Colors.ORANGE,
+                                ),
+                            ),
+                        ], spacing=10),
+                    ]),
+                    bgcolor=ft.Colors.BLUE_50,
+                    padding=20,
+                    border_radius=10,
+                    border=ft.border.all(2, ft.Colors.BLUE_200),
+                    visible=self.show_login_form,
+                ),
 
                 ft.Container(height=20),
 

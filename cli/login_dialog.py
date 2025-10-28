@@ -5,6 +5,7 @@ Provides UI for authentication configuration and interactive login
 
 import flet as ft
 import asyncio
+import threading
 from pathlib import Path
 from typing import Optional, Callable
 from loguru import logger
@@ -103,6 +104,7 @@ class LoginDialog:
             self.page.update()
 
         self.dialog = ft.AlertDialog(
+            modal=True,
             title=ft.Text("🔐 Configure Authentication"),
             content=ft.Container(
                 content=ft.Column(
@@ -164,10 +166,15 @@ class LoginDialog:
 
     def show(self):
         """Show the login dialog"""
-        self.dialog = self.create_dialog()
-        self.page.dialog = self.dialog
-        self.dialog.open = True
-        self.page.update()
+        try:
+            self.dialog = self.create_dialog()
+            self.page.dialog = self.dialog
+            self.dialog.open = True
+            self.page.update()
+        except Exception as e:
+            logger.error(f"ERROR in LoginDialog.show(): {str(e)}")
+            import traceback
+            traceback.print_exc()
 
     def close_dialog(self, e=None):
         """Close the dialog"""
@@ -215,8 +222,16 @@ class LoginDialog:
         if not self.validate_fields():
             return
 
-        # Run async login in a thread
-        asyncio.create_task(self._do_automatic_login())
+        # Run async login in background thread
+        def run_async_login():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(self._do_automatic_login())
+            finally:
+                loop.close()
+
+        threading.Thread(target=run_async_login, daemon=True).start()
 
     async def _do_automatic_login(self):
         """Async automatic login"""
@@ -251,8 +266,16 @@ class LoginDialog:
         if not self.validate_fields():
             return
 
-        # Run async login in a thread
-        asyncio.create_task(self._do_interactive_login())
+        # Run async login in background thread
+        def run_async_login():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(self._do_interactive_login())
+            finally:
+                loop.close()
+
+        threading.Thread(target=run_async_login, daemon=True).start()
 
     async def _do_interactive_login(self):
         """Async interactive login"""
